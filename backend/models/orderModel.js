@@ -28,12 +28,21 @@ const orderSchema = new mongoose.Schema({
     paymentMethod: {
         type: String,
         required: true,
-        default: "Card"
+        default: "Card",
+        enum: ["Card", "Cash on Delivery", "COD", "PayPal", "Stripe"]
     },
     itemsPrice: {
         type: Number,
         required: true,
         default: 0.0
+    },
+    discountPrice: {
+        type: Number,
+        default: 0.0
+    },
+    couponCode: {
+        type: String,
+        default: ""
     },
     taxPrice: {
         type: Number,

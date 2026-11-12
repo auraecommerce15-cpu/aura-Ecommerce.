@@ -1,4 +1,5 @@
 import Product from "../models/productModel.js";
+import { escapeRegex } from "../utils/escapeRegex.js";
 
 // @desc    Get all products with filters
 // @route   GET /api/v1/product
@@ -9,9 +10,9 @@ export const getProducts = async (req, res) => {
 
         let query = {};
 
-        // Search Keyword
-        if (keyword) {
-            query.name = { $regex: keyword, $options: "i" };
+        // Search Keyword with safe escaped regex
+        if (keyword && typeof keyword === "string" && keyword.trim()) {
+            query.name = { $regex: escapeRegex(keyword.trim()), $options: "i" };
         }
 
         // Category Filter

@@ -11,8 +11,25 @@ import cors from 'cors';
 const app = express();
 
 app.use(express.json({ limit: '10mb' }));
+const allowedOrigins = [
+    'http://localhost:5173',
+    'http://localhost:3000',
+    'http://localhost:8000',
+    'https://aura-ecommerce-5c8m.vercel.app',
+    ...(process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',').map(o => o.trim()) : [])
+];
+
 app.use(cors({
-    origin: true,
+    origin: (origin, callback) => {
+        if (!origin) return callback(null, true);
+        if (
+            allowedOrigins.includes(origin) ||
+            origin.endsWith('.vercel.app')
+        ) {
+            return callback(null, true);
+        }
+        return callback(new Error('Blocked by CORS policy'));
+    },
     credentials: true
 }));
 

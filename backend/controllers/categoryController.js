@@ -1,5 +1,6 @@
 import Category from "../models/categoryModel.js";
 import Product from "../models/productModel.js";
+import { escapeRegex } from "../utils/escapeRegex.js";
 
 const DEFAULT_CATEGORIES = [
     { name: "Laptops", description: "High-performance portable computers and ultrabooks" },
@@ -102,9 +103,9 @@ export const createCategory = async (req, res) => {
 
         const trimmedName = name.trim();
 
-        // Check if category already exists (case-insensitive)
+        // Check if category already exists (case-insensitive with safe regex escaping)
         const existingCategory = await Category.findOne({
-            name: { $regex: new RegExp(`^${trimmedName}$`, "i") }
+            name: { $regex: new RegExp(`^${escapeRegex(trimmedName)}$`, "i") }
         });
 
         if (existingCategory) {

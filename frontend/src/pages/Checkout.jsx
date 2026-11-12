@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { clearCart } from "@/redux/cartSlice";
 import { useNavigate, Link } from "react-router-dom";
 import api from "@/lib/api";
@@ -7,20 +7,22 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
-import { CreditCard, ShieldCheck } from "lucide-react";
+import { CreditCard, ShieldCheck, Banknote, Tag, X } from "lucide-react";
 
 const Checkout = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { cartItems } = useSelector((state) => state.cart);
-    const { user } = useSelector((state) => state.user);
 
-    // Pre-populate with user shipping details if exist
+    const [paymentMethod, setPaymentMethod] = useState("Card"); // "Card" or "Cash on Delivery"
+    const [couponInput, setCouponInput] = useState("");
+    const [appliedCoupon, setAppliedCoupon] = useState("");
+
     const [shippingDetails, setShippingDetails] = useState({
-        address: user?.address || "",
-        city: user?.city || "",
-        zipCode: user?.zipCode || "",
-        phoneNo: user?.phoneNo || ""
+        address: "",
+        city: "",
+        zipCode: "",
+        phoneNo: ""
     });
 
     const [cardDetails, setCardDetails] = useState({
@@ -46,11 +48,31 @@ const Checkout = () => {
         });
     };
 
-    // Calculate Prices
+    // Calculate Prices with Coupon Discount
     const itemsPrice = cartItems.reduce((acc, item) => acc + item.price * item.qty, 0);
-    const shippingPrice = itemsPrice === 0 || itemsPrice > 50 ? 0 : 10;
-    const taxPrice = Number((0.08 * itemsPrice).toFixed(2));
-    const totalPrice = Number((itemsPrice + shippingPrice + taxPrice).toFixed(2));
+    const discountPrice = appliedCoupon === "AURA10" ? Number((itemsPrice * 0.10).toFixed(2)) : 0;
+    const discountedBase = Math.max(0, itemsPrice - discountPrice);
+    const shippingPrice = discountedBase === 0 || discountedBase > 50 ? 0 : 10;
+    const taxPrice = Number((0.08 * discountedBase).toFixed(2));
+    const totalPrice = Number((discountedBase + shippingPrice + taxPrice).toFixed(2));
+
+    const handleApplyCoupon = (e) => {
+        e.preventDefault();
+        const code = couponInput.trim().toUpperCase();
+        if (!code) return;
+        if (code === "AURA10") {
+            setAppliedCoupon("AURA10");
+            toast.success("Coupon AURA10 applied! 10% discount has been subtracted.");
+        } else {
+            toast.error("Invalid coupon code. Try 'AURA10' for 10% off!");
+        }
+    };
+
+    const handleRemoveCoupon = () => {
+        setAppliedCoupon("");
+        setCouponInput("");
+        toast.info("Coupon removed.");
+    };
 
     const handleSubmitOrder = async (e) => {
         e.preventDefault();
@@ -61,9 +83,11 @@ const Checkout = () => {
             return;
         }
 
-        if (!cardDetails.cardholderName || !cardDetails.cardNumber || !cardDetails.expiry || !cardDetails.cvv) {
-            toast.error("Please fill in all card details for mock payment verification");
-            return;
+        if (paymentMethod === "Card") {
+            if (!cardDetails.cardholderName || !cardDetails.cardNumber || !cardDetails.expiry || !cardDetails.cvv) {
+                toast.error("Please fill in all card details for payment authorization");
+                return;
+            }
         }
 
         const accessToken = localStorage.getItem("accessToken");
@@ -78,7 +102,8 @@ const Checkout = () => {
             const orderPayload = {
                 orderItems: cartItems,
                 shippingAddress: shippingDetails,
-                paymentMethod: "Card",
+                paymentMethod,
+                couponCode: appliedCoupon,
                 itemsPrice,
                 taxPrice,
                 shippingPrice,
@@ -93,7 +118,10 @@ const Checkout = () => {
             });
 
             if (res.data.success) {
-                toast.success("Payment authorized! Order placed successfully.");
+                toast.success(paymentMethod === "Cash on Delivery"
+                    ? "Order placed successfully! Pay upon delivery."
+                    : "Payment authorized! Order placed successfully."
+                );
                 dispatch(clearCart());
                 navigate(`/order/${res.data.order._id}`);
             }
@@ -180,70 +208,117 @@ const Checkout = () => {
                             </div>
                         </div>
 
-                        {/* Mock Payment Details */}
-                        <div className="bg-white rounded-3xl p-6 md:p-8 border border-slate-100 shadow-2xs space-y-4">
-                            <div className="flex justify-between items-center mb-2">
-                                <h2 className="text-xl font-bold text-slate-900">Mock Payment Card</h2>
+                        {/* Payment Method Selector */}
+                        <div className="bg-white rounded-3xl p-6 md:p-8 border border-slate-100 shadow-2xs space-y-5">
+                            <div className="flex justify-between items-center">
+                                <h2 className="text-xl font-bold text-slate-900">Payment Method</h2>
                                 <span className="flex items-center gap-1.5 text-xs text-green-600 font-bold bg-green-50 px-2.5 py-1 rounded-full">
-                                    <ShieldCheck size={14} /> Secure Sandbox
+                                    <ShieldCheck size={14} /> 256-bit Encrypted
                                 </span>
                             </div>
 
-                            <div className="grid gap-2">
-                                <Label htmlFor="cardholderName">Cardholder Name</Label>
-                                <Input
-                                    id="cardholderName"
-                                    name="cardholderName"
-                                    placeholder="John Doe"
-                                    value={cardDetails.cardholderName}
-                                    onChange={handleCardChange}
-                                    required
-                                />
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <button
+                                    type="button"
+                                    onClick={() => setPaymentMethod("Card")}
+                                    className={`p-4 rounded-2xl border text-left flex items-start gap-3 transition-all cursor-pointer ${
+                                        paymentMethod === "Card"
+                                            ? "border-pink-600 bg-pink-50/40 ring-2 ring-pink-500/20"
+                                            : "border-slate-200 hover:border-slate-300 bg-white"
+                                    }`}
+                                >
+                                    <div className={`p-2 rounded-xl ${paymentMethod === "Card" ? "bg-pink-600 text-white" : "bg-slate-100 text-slate-600"}`}>
+                                        <CreditCard size={20} />
+                                    </div>
+                                    <div>
+                                        <div className="font-bold text-sm text-slate-900">Credit / Debit Card</div>
+                                        <p className="text-xs text-slate-500 mt-0.5">Instant online payment with mock verification</p>
+                                    </div>
+                                </button>
+
+                                <button
+                                    type="button"
+                                    onClick={() => setPaymentMethod("Cash on Delivery")}
+                                    className={`p-4 rounded-2xl border text-left flex items-start gap-3 transition-all cursor-pointer ${
+                                        paymentMethod === "Cash on Delivery"
+                                            ? "border-pink-600 bg-pink-50/40 ring-2 ring-pink-500/20"
+                                            : "border-slate-200 hover:border-slate-300 bg-white"
+                                    }`}
+                                >
+                                    <div className={`p-2 rounded-xl ${paymentMethod === "Cash on Delivery" ? "bg-pink-600 text-white" : "bg-slate-100 text-slate-600"}`}>
+                                        <Banknote size={20} />
+                                    </div>
+                                    <div>
+                                        <div className="font-bold text-sm text-slate-900">Cash on Delivery</div>
+                                        <p className="text-xs text-slate-500 mt-0.5">Pay in cash or card when your package arrives</p>
+                                    </div>
+                                </button>
                             </div>
 
-                            <div className="grid gap-2">
-                                <Label htmlFor="cardNumber">Card Number</Label>
-                                <div className="relative">
-                                    <Input
-                                        id="cardNumber"
-                                        name="cardNumber"
-                                        placeholder="4111 2222 3333 4444"
-                                        maxLength={19}
-                                        value={cardDetails.cardNumber}
-                                        onChange={handleCardChange}
-                                        required
-                                    />
-                                    <CreditCard className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
-                                </div>
-                            </div>
+                            {/* Card Details (Only if Card selected) */}
+                            {paymentMethod === "Card" ? (
+                                <div className="space-y-4 pt-4 border-t border-slate-100">
+                                    <div className="grid gap-2">
+                                        <Label htmlFor="cardholderName">Cardholder Name</Label>
+                                        <Input
+                                            id="cardholderName"
+                                            name="cardholderName"
+                                            placeholder="John Doe"
+                                            value={cardDetails.cardholderName}
+                                            onChange={handleCardChange}
+                                            required={paymentMethod === "Card"}
+                                        />
+                                    </div>
 
-                            <div className="grid grid-cols-2 gap-4">
-                                <div className="grid gap-2">
-                                    <Label htmlFor="expiry">Expiry Date</Label>
-                                    <Input
-                                        id="expiry"
-                                        name="expiry"
-                                        placeholder="MM/YY"
-                                        maxLength={5}
-                                        value={cardDetails.expiry}
-                                        onChange={handleCardChange}
-                                        required
-                                    />
+                                    <div className="grid gap-2">
+                                        <Label htmlFor="cardNumber">Card Number</Label>
+                                        <div className="relative">
+                                            <Input
+                                                id="cardNumber"
+                                                name="cardNumber"
+                                                placeholder="4111 2222 3333 4444"
+                                                maxLength={19}
+                                                value={cardDetails.cardNumber}
+                                                onChange={handleCardChange}
+                                                required={paymentMethod === "Card"}
+                                            />
+                                            <CreditCard className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+                                        </div>
+                                    </div>
+
+                                    <div className="grid grid-cols-2 gap-4">
+                                        <div className="grid gap-2">
+                                            <Label htmlFor="expiry">Expiry Date</Label>
+                                            <Input
+                                                id="expiry"
+                                                name="expiry"
+                                                placeholder="MM/YY"
+                                                maxLength={5}
+                                                value={cardDetails.expiry}
+                                                onChange={handleCardChange}
+                                                required={paymentMethod === "Card"}
+                                            />
+                                        </div>
+                                        <div className="grid gap-2">
+                                            <Label htmlFor="cvv">CVV</Label>
+                                            <Input
+                                                id="cvv"
+                                                name="cvv"
+                                                type="password"
+                                                placeholder="123"
+                                                maxLength={4}
+                                                value={cardDetails.cvv}
+                                                onChange={handleCardChange}
+                                                required={paymentMethod === "Card"}
+                                            />
+                                        </div>
+                                    </div>
                                 </div>
-                                <div className="grid gap-2">
-                                    <Label htmlFor="cvv">CVV</Label>
-                                    <Input
-                                        id="cvv"
-                                        name="cvv"
-                                        type="password"
-                                        placeholder="123"
-                                        maxLength={4}
-                                        value={cardDetails.cvv}
-                                        onChange={handleCardChange}
-                                        required
-                                    />
+                            ) : (
+                                <div className="p-4 rounded-2xl bg-amber-50/70 border border-amber-200 text-amber-900 text-xs">
+                                    <strong>Cash on Delivery (COD) Selected:</strong> No upfront payment is required now. You can inspect your package and pay the courier upon delivery.
                                 </div>
-                            </div>
+                            )}
                         </div>
                     </div>
 
@@ -271,6 +346,41 @@ const Checkout = () => {
                             ))}
                         </div>
 
+                        {/* Coupon Code Section */}
+                        <div className="pt-2 border-t border-slate-100">
+                            {appliedCoupon ? (
+                                <div className="flex items-center justify-between p-2.5 rounded-xl bg-pink-50 border border-pink-200 text-pink-700 text-xs">
+                                    <div className="flex items-center gap-2">
+                                        <Tag size={14} />
+                                        <span className="font-bold">Code "{appliedCoupon}" Applied (-10%)</span>
+                                    </div>
+                                    <button
+                                        type="button"
+                                        onClick={handleRemoveCoupon}
+                                        className="p-1 hover:bg-pink-100 rounded-full text-pink-700 cursor-pointer"
+                                    >
+                                        <X size={14} />
+                                    </button>
+                                </div>
+                            ) : (
+                                <div className="flex gap-2">
+                                    <Input
+                                        placeholder="Promo code (e.g. AURA10)"
+                                        value={couponInput}
+                                        onChange={(e) => setCouponInput(e.target.value)}
+                                        className="text-xs h-9"
+                                    />
+                                    <Button
+                                        type="button"
+                                        onClick={handleApplyCoupon}
+                                        className="bg-slate-900 hover:bg-slate-800 text-white text-xs h-9 px-3 cursor-pointer"
+                                    >
+                                        Apply
+                                    </Button>
+                                </div>
+                            )}
+                        </div>
+
                         <hr className="border-slate-100" />
 
                         <div className="space-y-3.5 text-xs">
@@ -278,6 +388,12 @@ const Checkout = () => {
                                 <span>Subtotal</span>
                                 <span className="font-bold text-slate-850">${itemsPrice.toFixed(2)}</span>
                             </div>
+                            {discountPrice > 0 && (
+                                <div className="flex justify-between text-pink-600 font-bold">
+                                    <span>Discount (AURA10)</span>
+                                    <span>-${discountPrice.toFixed(2)}</span>
+                                </div>
+                            )}
                             <div className="flex justify-between text-slate-500">
                                 <span>Shipping</span>
                                 <span className="font-bold text-slate-850">
@@ -300,7 +416,11 @@ const Checkout = () => {
                             disabled={loading}
                             className="w-full bg-pink-600 hover:bg-pink-700 text-white font-bold h-12 rounded-xl cursor-pointer"
                         >
-                            {loading ? "Authorizing Payment..." : `Authorize & Pay $${totalPrice.toFixed(2)}`}
+                            {loading
+                                ? "Processing Order..."
+                                : paymentMethod === "Cash on Delivery"
+                                ? `Place COD Order ($${totalPrice.toFixed(2)})`
+                                : `Authorize & Pay $${totalPrice.toFixed(2)}`}
                         </Button>
                     </div>
 

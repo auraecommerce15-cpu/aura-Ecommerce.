@@ -18,6 +18,10 @@ import Reviews from './pages/Reviews'
 import About from './pages/About'
 import Contact from './pages/Contact'
 import FAQ from './pages/FAQ'
+import PrivacyPolicy from './pages/PrivacyPolicy'
+import Terms from './pages/Terms'
+import ReturnsPolicy from './pages/ReturnsPolicy'
+import ShippingPolicy from './pages/ShippingPolicy'
 import Footer from './components/footer'
 
 const router= createBrowserRouter([
@@ -94,6 +98,22 @@ const router= createBrowserRouter([
   {
     path: "/faq",
     element: <><Navbar/><FAQ/><Footer/></>
+  },
+  {
+    path: "/privacy",
+    element: <><Navbar/><PrivacyPolicy/><Footer/></>
+  },
+  {
+    path: "/terms",
+    element: <><Navbar/><Terms/><Footer/></>
+  },
+  {
+    path: "/returns",
+    element: <><Navbar/><ReturnsPolicy/><Footer/></>
+  },
+  {
+    path: "/shipping",
+    element: <><Navbar/><ShippingPolicy/><Footer/></>
   }
 ])
 

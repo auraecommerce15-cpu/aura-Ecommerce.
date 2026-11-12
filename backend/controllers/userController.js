@@ -109,21 +109,26 @@ export const verify = async (req, res)=>{
 export const reVerify = async(req, res)=>{
     try {
         const {email}= req.body;
+        if (!email) {
+            return res.status(400).json({
+                success: false,
+                message: "Email is required"
+            });
+        }
         const existingUser= await user.findOne({email});
         if(!existingUser){
-            return res.status(400).json({
-                success:false,
-                message: "User not found"
-            })
+            return res.status(200).json({
+                success:true,
+                message: "If an account exists with this email, a verification link has been sent."
+            });
         }
-       const token = jwt.sign({id:existingUser._id}, process.env.SECRET_KEY,{expiresIn:'10m'})
+        const token = jwt.sign({id:existingUser._id}, process.env.SECRET_KEY,{expiresIn:'10m'})
         await verifyEmail(token, email)
         existingUser.token= token
         await existingUser.save()
         return res.status(200).json({
             success:true,
-            message:"Verification email sent successfully",
-            token:existingUser.token
+            message:"Verification email sent successfully"
         })
     } catch (error) {
         return res.status(500).json({
@@ -146,14 +151,14 @@ export const login = async(req, res)=>{
         if(!existingUser){
             return res.status(400).json({
                 success:false,
-                message: "User does not exist"
+                message: "Invalid email or password"
             })
         }
         const isPasswordValid = await bcrypt.compare(password, existingUser.password)
         if(!isPasswordValid){
             return res.status(400).json({
                 success:false,
-                message:"Invalid Credentials"
+                message:"Invalid email or password"
             })
         }
         if(existingUser.isVerified=== false){
@@ -227,14 +232,22 @@ export const logout = async(req, res)=>{
 export const forgetPassword= async(req, res)=>{
     try {
         const {email}=req.body;
+        if (!email) {
+            return res.status(400).json({
+                success: false,
+                message: "Email is required"
+            });
+        }
         const User =await user.findOne({email})
         if(!User){
-            return res.status(400).json({
-                success:false,
-                message:"user not found"
+            // Return success without leaking whether account exists
+            return res.status(200).json({
+                success:true,
+                message:"If an account exists with this email, an OTP has been sent."
             })
         }
-        const otp= Math.floor(100000+ Math.random()*900000).toString()
+        // Cryptographically secure 6-digit OTP
+        const otp = crypto.randomInt(100000, 1000000).toString();
         const otpExpiry= new Date(Date.now()+10*60*1000)
         User.otp= otp
         User.otpExpiry=otpExpiry
@@ -385,17 +398,26 @@ export const allUser = async(_, res)=>{
 export const getUserbyId= async(req, res)=>{
     try {
         const {userId}= req.params;
-        const User= await user.findById(userId).select("-password -otp -otpExpiry -token")
+
+        // Restrict to the account owner or an admin
+        if (!req.user || (req.user.role !== "admin" && req.user._id.toString() !== userId)) {
+            return res.status(403).json({
+                success: false,
+                message: "Access denied: you can only view your own profile"
+            });
+        }
+
+        const User= await user.findById(userId).select("-password -token -otp -otpExpiry -resetPasswordToken -resetPasswordTokenExpiry");
         if(!User){
             return res.status(404).json({
                 success:false,
                 message:"user not found"
-            })
+            });
         }
-         return res.status(200).json({
-                success:true,
-                User,
-            })
+        return res.status(200).json({
+            success:true,
+            User,
+        });
 
     } catch (error) {
         return res.status(500).json({

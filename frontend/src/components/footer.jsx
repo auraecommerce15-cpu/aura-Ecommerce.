@@ -68,8 +68,8 @@ const Footer = () => {
     { label: "Customer Reviews & Ratings", to: "/reviews" },
     { label: "Shopping Bag / Cart", to: "/cart" },
     { label: "Fast Express Checkout", to: "/checkout" },
-    { label: "Delivery & Shipping Rates", to: "/faq" },
-    { label: "Returns & Refund Policy", to: "/faq" }
+    { label: "Delivery & Shipping Rates", to: "/shipping" },
+    { label: "Returns & Refund Policy", to: "/returns" }
   ];
 
   const companyLinks = [
@@ -77,8 +77,8 @@ const Footer = () => {
     { label: "Authenticity & Heritage", to: "/about" },
     { label: "Contact Tech Specialists", to: "/contact" },
     { label: "Help & Knowledge Base", to: "/faq" },
-    { label: "Terms of Service", to: "/faq" },
-    { label: "Privacy Policy", to: "/faq" }
+    { label: "Terms of Service", to: "/terms" },
+    { label: "Privacy Policy", to: "/privacy" }
   ];
 
   const socialLinks = [
@@ -373,10 +373,10 @@ const Footer = () => {
             &copy; {currentYear} <strong className="text-slate-300 font-semibold">Aura Tech Inc.</strong> All rights reserved. Curated for the exceptional.
           </p>
           <div className="flex flex-wrap justify-center gap-6 text-[11px]">
-            <Link to="/faq" className="hover:text-slate-300 transition-colors">Security & Compliance</Link>
-            <Link to="/faq" className="hover:text-slate-300 transition-colors">Privacy Policy</Link>
-            <Link to="/faq" className="hover:text-slate-300 transition-colors">Cookie Preferences</Link>
-            <Link to="/about" className="hover:text-slate-300 transition-colors">Sustainability</Link>
+            <Link to="/shipping" className="hover:text-slate-300 transition-colors">Shipping Policy</Link>
+            <Link to="/returns" className="hover:text-slate-300 transition-colors">Returns & Refunds</Link>
+            <Link to="/terms" className="hover:text-slate-300 transition-colors">Terms of Service</Link>
+            <Link to="/privacy" className="hover:text-slate-300 transition-colors">Privacy Policy</Link>
           </div>
         </div>
 

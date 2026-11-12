@@ -7,7 +7,8 @@ import { Link, useSearchParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
-import { Search, SlidersHorizontal, ShoppingCart, Star } from "lucide-react";
+import { Search, SlidersHorizontal, ShoppingCart, Star, Laptop } from "lucide-react";
+import PageHero from "@/components/PageHero";
 
 const Products = () => {
     const dispatch = useDispatch();
@@ -124,14 +125,28 @@ const Products = () => {
     };
 
     return (
-        <div className="pt-24 pb-16 min-h-screen bg-slate-55/30">
-            <div className="max-w-7xl mx-auto px-6">
+        <div className="pt-18 pb-16 min-h-screen bg-slate-50/60 dark:bg-slate-950 transition-colors">
+            
+            {/* ── Page Hero Banner ── */}
+            <PageHero
+                badge="CURATED HARDWARE"
+                title="Explore Next-Gen"
+                gradientText="Electronics"
+                subtitle="Discover our complete collection of certified laptops, smartphones, audio monitors, and wearables."
+                breadcrumbs={[
+                    { label: "Home", to: "/" },
+                    { label: "Shop", to: null }
+                ]}
+                rightIcon={Laptop}
+            />
+
+            <div className="max-w-7xl mx-auto px-6 pt-10">
                 
-                {/* Page Title & Search Header */}
+                {/* Search & Filter Header Bar */}
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
                     <div>
-                        <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">Explore Products</h1>
-                        <p className="text-sm text-slate-500">Discover our collection of premium electronics</p>
+                        <h2 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">Available Products</h2>
+                        <p className="text-xs text-slate-500 dark:text-slate-400">Showing {products.length} premium tech items</p>
                     </div>
 
                     <form onSubmit={handleSearchSubmit} className="flex w-full md:w-auto items-center gap-2">

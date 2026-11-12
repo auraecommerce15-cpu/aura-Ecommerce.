@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import PageHero from "@/components/PageHero";
 
 const AdminDashboard = () => {
     const { user } = useSelector((state) => state.user);
@@ -389,14 +390,22 @@ const AdminDashboard = () => {
     };
 
     return (
-        <div className="pt-28 pb-16 min-h-screen bg-slate-55/20">
-            <div className="max-w-7xl mx-auto px-6">
+        <div className="pb-16 min-h-screen bg-white dark:bg-slate-950 text-slate-900 dark:text-white">
+            <PageHero
+                badge="ADMIN CONTROL"
+                title="Admin"
+                gradientText="Console"
+                subtitle="Manage store inventory, product categories, and customer orders in one place."
+                breadcrumbs={[{ label: "Home", to: "/" }, { label: "Admin Console", to: null }]}
+                rightIcon={Package}
+            />
+            <div className="max-w-7xl mx-auto px-6 pt-8">
                 
                 {/* Admin Header */}
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
                     <div>
-                        <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">Admin Console</h1>
-                        <p className="text-sm text-slate-500">Manage store inventory, product categories, and customer checkout cycles</p>
+                        <h2 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">Dashboard Overview</h2>
+                        <p className="text-xs text-slate-500 dark:text-slate-400">Manage store inventory, product categories, and customer checkout cycles</p>
                     </div>
 
                     <div className="flex flex-wrap gap-2.5">
@@ -424,7 +433,7 @@ const AdminDashboard = () => {
                         >
                             <Layers size={16} />
                             <span>Categories</span>
-                            <span className="text-xs px-1.5 py-0.2 rounded-md bg-pink-100 text-pink-700 font-bold ml-1">
+                            <span className="text-xs px-1.5 py-0.2 rounded-md bg-purple-100 text-purple-700 font-bold ml-1">
                                 {categoriesList.length || availableCategoryNames.length}
                             </span>
                         </button>
@@ -453,14 +462,14 @@ const AdminDashboard = () => {
                                 <h2 className="text-xl font-bold text-slate-900">Manage Catalog</h2>
                                 <p className="text-xs text-slate-400 mt-0.5">Add, edit, or remove hardware from your store inventory</p>
                             </div>
-                            <Button onClick={openAddProductModal} className="bg-pink-600 hover:bg-pink-700 text-white rounded-xl h-10 px-5 gap-2 cursor-pointer font-bold shadow-sm">
+                            <Button onClick={openAddProductModal} className="bg-purple-600 hover:bg-purple-700 text-white rounded-xl h-10 px-5 gap-2 cursor-pointer font-bold shadow-sm">
                                 <Plus size={16} /> Add Product
                             </Button>
                         </div>
 
                         {productsLoading ? (
                             <div className="text-center py-12">
-                                <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-pink-500 mx-auto"></div>
+                                <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-purple-500 mx-auto"></div>
                             </div>
                         ) : products.length === 0 ? (
                             <div className="text-center py-12 text-slate-500">No products in catalog. Click 'Add Product' to start seeding.</div>
@@ -489,7 +498,7 @@ const AdminDashboard = () => {
                                                 </td>
                                                 <td className="px-6 py-4 font-bold text-slate-900 truncate max-w-xs">{p.name}</td>
                                                 <td className="px-6 py-4">
-                                                    <span className="px-2.5 py-1 rounded-full text-xs font-bold bg-pink-50 text-pink-700 border border-pink-200/50">
+                                                    <span className="px-2.5 py-1 rounded-full text-xs font-bold bg-pink-50 text-purple-700 border border-pink-200/50">
                                                         {p.category}
                                                     </span>
                                                 </td>
@@ -538,7 +547,7 @@ const AdminDashboard = () => {
                         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                             <div>
                                 <h2 className="text-xl font-bold text-slate-900 flex items-center gap-2">
-                                    <Layers className="text-pink-600" size={22} />
+                                    <Layers className="text-purple-600" size={22} />
                                     Manage Product Categories
                                 </h2>
                                 <p className="text-xs text-slate-400 mt-0.5">
@@ -550,7 +559,7 @@ const AdminDashboard = () => {
                                     setCategoryForm({ name: "", description: "" });
                                     setShowCategoryModal(true);
                                 }}
-                                className="bg-pink-600 hover:bg-pink-700 text-white rounded-xl h-10 px-5 gap-2 cursor-pointer font-bold shadow-sm"
+                                className="bg-purple-600 hover:bg-purple-700 text-white rounded-xl h-10 px-5 gap-2 cursor-pointer font-bold shadow-sm"
                             >
                                 <Plus size={16} /> Add Category
                             </Button>
@@ -558,7 +567,7 @@ const AdminDashboard = () => {
 
                         {categoriesLoading ? (
                             <div className="text-center py-12">
-                                <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-pink-500 mx-auto"></div>
+                                <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-purple-500 mx-auto"></div>
                             </div>
                         ) : categoriesList.length === 0 ? (
                             <div className="text-center py-12 text-slate-500">No categories found. Click 'Add Category' to create one.</div>
@@ -567,15 +576,15 @@ const AdminDashboard = () => {
                                 {categoriesList.map((cat, idx) => (
                                     <div
                                         key={cat._id || idx}
-                                        className="p-5 rounded-2xl border border-slate-100 bg-slate-50/50 hover:bg-white hover:border-pink-300 hover:shadow-md transition-all duration-300 flex flex-col justify-between group"
+                                        className="p-5 rounded-2xl border border-slate-100 bg-slate-50/50 hover:bg-white hover:border-purple-300 hover:shadow-md transition-all duration-300 flex flex-col justify-between group"
                                     >
                                         <div className="space-y-2">
                                             <div className="flex items-start justify-between gap-3">
                                                 <div className="flex items-center gap-2.5">
-                                                    <div className="w-9 h-9 rounded-xl bg-pink-100 text-pink-600 flex items-center justify-center font-bold">
+                                                    <div className="w-9 h-9 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center font-bold">
                                                         <Tag size={16} />
                                                     </div>
-                                                    <h3 className="font-extrabold text-slate-900 text-base group-hover:text-pink-600 transition-colors">
+                                                    <h3 className="font-extrabold text-slate-900 text-base group-hover:text-purple-600 transition-colors">
                                                         {cat.name}
                                                     </h3>
                                                 </div>
@@ -617,7 +626,7 @@ const AdminDashboard = () => {
 
                         {ordersLoading ? (
                             <div className="text-center py-12">
-                                <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-pink-500 mx-auto"></div>
+                                <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-purple-500 mx-auto"></div>
                             </div>
                         ) : orders.length === 0 ? (
                             <div className="text-center py-12 text-slate-500">No checkout orders placed yet.</div>
@@ -665,7 +674,7 @@ const AdminDashboard = () => {
                                                     <select
                                                         value={o.status}
                                                         onChange={(e) => handleStatusChange(o._id, e.target.value)}
-                                                        className="border border-slate-200 rounded-lg p-1.5 text-xs text-slate-700 outline-none focus:border-pink-500 bg-white font-bold cursor-pointer"
+                                                        className="border border-slate-200 rounded-lg p-1.5 text-xs text-slate-700 outline-none focus:border-purple-500 bg-white font-bold cursor-pointer"
                                                     >
                                                         <option value="Pending">Pending</option>
                                                         <option value="Processing">Processing</option>
@@ -689,7 +698,7 @@ const AdminDashboard = () => {
                         <div className="bg-white rounded-3xl shadow-2xl relative w-full max-w-md flex flex-col overflow-hidden">
                             <div className="flex items-center justify-between px-6 pt-6 pb-4 border-b border-slate-100">
                                 <h3 className="text-xl font-bold text-slate-900 flex items-center gap-2">
-                                    <FolderPlus size={20} className="text-pink-600" />
+                                    <FolderPlus size={20} className="text-purple-600" />
                                     Add New Category
                                 </h3>
                                 <button
@@ -721,7 +730,7 @@ const AdminDashboard = () => {
                                         placeholder="Briefly describe what belongs in this category..."
                                         value={categoryForm.description}
                                         onChange={(e) => setCategoryForm({ ...categoryForm, description: e.target.value })}
-                                        className="w-full border border-slate-200 rounded-xl p-3 text-sm text-slate-750 focus:border-pink-500 outline-none resize-none"
+                                        className="w-full border border-slate-200 rounded-xl p-3 text-sm text-slate-750 focus:border-purple-500 outline-none resize-none"
                                     />
                                 </div>
 
@@ -737,7 +746,7 @@ const AdminDashboard = () => {
                                     <Button
                                         type="submit"
                                         disabled={categorySubmitting}
-                                        className="flex-1 bg-pink-600 hover:bg-pink-700 text-white font-bold rounded-xl cursor-pointer shadow-sm"
+                                        className="flex-1 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-xl cursor-pointer shadow-sm"
                                     >
                                         {categorySubmitting ? "Creating..." : "Create Category"}
                                     </Button>
@@ -786,7 +795,7 @@ const AdminDashboard = () => {
                                         rows={3}
                                         value={productForm.description}
                                         onChange={handleProductFormChange}
-                                        className="w-full border border-slate-200 rounded-xl p-3 text-sm text-slate-750 focus:border-pink-500 outline-none resize-none"
+                                        className="w-full border border-slate-200 rounded-xl p-3 text-sm text-slate-750 focus:border-purple-500 outline-none resize-none"
                                         required
                                     ></textarea>
                                 </div>
@@ -830,7 +839,7 @@ const AdminDashboard = () => {
                                                     setIsCustomCategory(true);
                                                     setCustomCategoryName("");
                                                 }}
-                                                className="text-xs text-pink-600 hover:text-pink-700 font-bold flex items-center gap-1 cursor-pointer"
+                                                className="text-xs text-purple-600 hover:text-purple-700 font-bold flex items-center gap-1 cursor-pointer"
                                             >
                                                 <Plus size={13} /> + New Category
                                             </button>
@@ -861,12 +870,12 @@ const AdminDashboard = () => {
                                                     handleProductFormChange(e);
                                                 }
                                             }}
-                                            className="w-full border border-slate-200 rounded-lg p-2.5 text-sm text-slate-750 focus:border-pink-500 outline-none bg-white font-medium cursor-pointer"
+                                            className="w-full border border-slate-200 rounded-lg p-2.5 text-sm text-slate-750 focus:border-purple-500 outline-none bg-white font-medium cursor-pointer"
                                         >
                                             {availableCategoryNames.map((cat) => (
                                                 <option key={cat} value={cat}>{cat}</option>
                                             ))}
-                                            <option value="__new_custom_category__" className="text-pink-600 font-bold">
+                                            <option value="__new_custom_category__" className="text-purple-600 font-bold">
                                                 + Add New Category...
                                             </option>
                                         </select>
@@ -878,7 +887,7 @@ const AdminDashboard = () => {
                                                 onChange={(e) => setCustomCategoryName(e.target.value)}
                                                 autoFocus
                                                 required
-                                                className="border-pink-300 focus:border-pink-500"
+                                                className="border-purple-300 focus:border-purple-500"
                                             />
                                             <p className="text-[11px] text-slate-400">
                                                 This category will be created and saved in your store catalog.
@@ -904,8 +913,8 @@ const AdminDashboard = () => {
                                             />
                                         ) : (
                                             <>
-                                                <div className="w-12 h-12 rounded-full bg-pink-100 flex items-center justify-center group-hover:bg-pink-200 transition-colors">
-                                                    <ImagePlus size={22} className="text-pink-500" />
+                                                <div className="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center group-hover:bg-pink-200 transition-colors">
+                                                    <ImagePlus size={22} className="text-purple-500" />
                                                 </div>
                                                 <p className="text-sm font-semibold text-slate-600">Click to browse image</p>
                                                 <p className="text-xs text-slate-400">PNG, JPG, WEBP up to 5 MB</p>
@@ -924,7 +933,7 @@ const AdminDashboard = () => {
                                     {productForm.image && (
                                         <label
                                             htmlFor="image-upload"
-                                            className="flex items-center gap-1.5 text-xs font-semibold text-pink-600 hover:text-pink-700 cursor-pointer w-fit"
+                                            className="flex items-center gap-1.5 text-xs font-semibold text-purple-600 hover:text-purple-700 cursor-pointer w-fit"
                                         >
                                             <UploadCloud size={14} /> Change image
                                         </label>
@@ -937,7 +946,7 @@ const AdminDashboard = () => {
                                 <Button
                                     type="submit"
                                     form="product-form"
-                                    className="w-full bg-pink-600 hover:bg-pink-700 text-white font-bold h-11 rounded-xl cursor-pointer shadow-sm"
+                                    className="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold h-11 rounded-xl cursor-pointer shadow-sm"
                                 >
                                     {isEditing ? "Update Product" : "Save Product"}
                                 </Button>

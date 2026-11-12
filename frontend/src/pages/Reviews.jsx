@@ -5,6 +5,7 @@ import {
   Star, Check, Quote, MessageSquarePlus, ThumbsUp,
   Filter, ShieldCheck, Sparkles, X
 } from "lucide-react";
+import PageHero from "@/components/PageHero";
 
 const initialReviews = [
   {
@@ -156,40 +157,36 @@ const Reviews = () => {
   ).toFixed(1);
 
   return (
-    <div className="pt-28 pb-24 bg-slate-50/60 dark:bg-slate-950 min-h-screen text-slate-900 dark:text-white">
-      <div className="max-w-7xl mx-auto px-6 space-y-12">
-        {/* Header Hero */}
-        <div className="relative rounded-3xl overflow-hidden bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-8 md:p-14 shadow-sm">
-          <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
-            <div className="space-y-4 max-w-2xl">
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-pink-500/10 border border-pink-500/20 text-pink-600 dark:text-pink-400 text-xs font-bold uppercase tracking-wider">
-                <Sparkles size={14} /> Verified Buyer Feedback
-              </div>
-              <h1 className="text-4xl md:text-5xl font-black tracking-tight text-slate-900 dark:text-white">
-                Customer <span className="bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">Reviews</span>
-              </h1>
-              <p className="text-slate-600 dark:text-slate-400 text-sm md:text-base leading-relaxed">
-                Read real experiences from thousands of customers who trust Aura Store for authentic premium electronics, rapid delivery, and top-tier after-sales care.
-              </p>
-            </div>
+    <div className="pb-24 bg-white dark:bg-slate-950 min-h-screen text-slate-900 dark:text-white">
+      <PageHero
+        badge="COMMUNITY"
+        title="Customer"
+        gradientText="Reviews"
+        subtitle="Real experiences from thousands of verified buyers who trust Aura for premium electronics."
+        breadcrumbs={[{ label: "Home", to: "/" }, { label: "Reviews", to: null }]}
+        rightIcon={Star}
+      />
+      <div className="max-w-7xl mx-auto px-6 space-y-12 pt-8">
 
-            {/* Score Box */}
-            <div className="bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 text-center space-y-3 shrink-0 min-w-[240px]">
-              <div className="text-5xl font-black text-slate-900 dark:text-white">{averageRating}</div>
-              <div className="flex justify-center text-amber-400">
+        {/* Rating Summary + Write Review row */}
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+          <div className="flex items-center gap-4">
+            <div className="text-5xl font-black text-slate-900 dark:text-white">{averageRating}</div>
+            <div>
+              <div className="flex text-amber-400 mb-1">
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} size={18} className="fill-amber-400 text-amber-400" />
                 ))}
               </div>
-              <p className="text-xs text-slate-500 font-bold">Based on {reviewsList.length} verified reviews</p>
-              <Button
-                onClick={() => setShowModal(true)}
-                className="w-full bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white font-bold h-10 rounded-xl text-xs gap-1.5 shadow-md cursor-pointer"
-              >
-                <MessageSquarePlus size={14} /> Write a Review
-              </Button>
+              <p className="text-xs text-slate-500 dark:text-slate-400 font-bold">Based on {reviewsList.length} verified reviews</p>
             </div>
           </div>
+          <Button
+            onClick={() => setShowModal(true)}
+            className="bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-500 hover:to-purple-600 text-white font-bold h-10 rounded-xl text-xs gap-1.5 shadow-md cursor-pointer px-5"
+          >
+            <MessageSquarePlus size={14} /> Write a Review
+          </Button>
         </div>
 
         {/* Filter Bar */}
@@ -226,7 +223,7 @@ const Reviews = () => {
               key={i}
               className="relative bg-white dark:bg-slate-900 p-8 rounded-3xl border border-slate-200 dark:border-slate-800/80 shadow-sm hover:shadow-lg transition-all flex flex-col justify-between"
             >
-              <Quote size={32} className="absolute top-6 right-6 text-pink-100 dark:text-slate-800 rotate-180 pointer-events-none" />
+              <Quote size={32} className="absolute top-6 right-6 text-purple-100 dark:text-slate-800 rotate-180 pointer-events-none" />
 
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
@@ -249,7 +246,7 @@ const Reviews = () => {
 
               <div className="mt-8 pt-5 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-pink-500/20 to-purple-500/20 border border-pink-200/60 dark:border-pink-900/40 flex items-center justify-center text-pink-600 dark:text-pink-400 font-black text-xs shrink-0">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500/20 to-purple-500/20 border border-purple-200/60 dark:border-purple-900/40 flex items-center justify-center text-purple-600 dark:text-purple-400 font-black text-xs shrink-0">
                     {rev.avatar}
                   </div>
                   <div>
@@ -323,7 +320,7 @@ const Reviews = () => {
                     placeholder="e.g. Sarah Jenkins"
                     value={reviewForm.name}
                     onChange={(e) => setReviewForm({ ...reviewForm, name: e.target.value })}
-                    className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-pink-500 transition-colors text-slate-900 dark:text-white"
+                    className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-purple-500 transition-colors text-slate-900 dark:text-white"
                   />
                 </div>
 
@@ -336,7 +333,7 @@ const Reviews = () => {
                     placeholder="e.g. MacBook Pro Buyer or Creative Director"
                     value={reviewForm.role}
                     onChange={(e) => setReviewForm({ ...reviewForm, role: e.target.value })}
-                    className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-pink-500 transition-colors text-slate-900 dark:text-white"
+                    className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-purple-500 transition-colors text-slate-900 dark:text-white"
                   />
                 </div>
 
@@ -350,7 +347,7 @@ const Reviews = () => {
                     placeholder="Write your thoughts about product quality, shipping speed, customer service..."
                     value={reviewForm.text}
                     onChange={(e) => setReviewForm({ ...reviewForm, text: e.target.value })}
-                    className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl p-3 text-sm outline-none focus:border-pink-500 transition-colors text-slate-900 dark:text-white resize-none"
+                    className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl p-3 text-sm outline-none focus:border-purple-500 transition-colors text-slate-900 dark:text-white resize-none"
                   />
                 </div>
 
@@ -365,7 +362,7 @@ const Reviews = () => {
                   </Button>
                   <Button
                     type="submit"
-                    className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white font-bold h-10 px-6 rounded-xl shadow-md cursor-pointer text-xs"
+                    className="bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-500 hover:to-purple-600 text-white font-bold h-10 px-6 rounded-xl shadow-md cursor-pointer text-xs"
                   >
                     Submit Review
                   </Button>

@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Mail, Phone, MapPin, Send, ShieldCheck } from "lucide-react";
+import { Mail, Phone, MapPin, Send, ShieldCheck, MessageSquare } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
+import PageHero from "@/components/PageHero";
 
 const Contact = () => {
     const [formData, setFormData] = useState({
@@ -33,49 +34,48 @@ const Contact = () => {
     };
 
     return (
-        <div className="pt-28 pb-16 bg-slate-50/50 min-h-screen">
-            <div className="max-w-5xl mx-auto px-6 space-y-12">
-                
-                {/* Header */}
-                <div className="text-center space-y-4 max-w-lg mx-auto">
-                    <span className="text-xs font-bold uppercase tracking-wider text-pink-600">Get in Touch</span>
-                    <h1 className="text-3xl font-extrabold text-slate-900">How Can We Help You?</h1>
-                    <p className="text-slate-500 text-sm">
-                        Got a question about shipping speeds, bulk purchases, or order tracking? Drop us a note!
-                    </p>
-                </div>
+        <div className="pb-16 bg-white dark:bg-slate-950 min-h-screen">
+            <PageHero
+                badge="GET IN TOUCH"
+                title="Contact"
+                gradientText="Us"
+                subtitle="Got a question about shipping, orders, or our products? We're here to help 24/7."
+                breadcrumbs={[{ label: "Home", to: "/" }, { label: "Contact", to: null }]}
+                rightIcon={MessageSquare}
+            />
+            <div className="max-w-5xl mx-auto px-6 space-y-12 pt-10">
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     
                     {/* Left: Contact Info Cards */}
                     <div className="md:col-span-1 space-y-4">
-                        <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-3xs flex items-center gap-4">
-                            <div className="w-10 h-10 rounded-xl bg-pink-50 text-pink-600 flex items-center justify-center flex-shrink-0">
+                        <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-3xs flex items-center gap-4">
+                            <div className="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center flex-shrink-0">
                                 <Mail size={20} />
                             </div>
                             <div>
-                                <h4 className="font-bold text-slate-900 text-sm">Email Us</h4>
-                                <p className="text-xs text-slate-500 mt-0.5">support@aura.com</p>
+                                <h4 className="font-bold text-slate-900 dark:text-white text-sm">Email Us</h4>
+                                <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">support@aura.com</p>
                             </div>
                         </div>
 
-                        <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-3xs flex items-center gap-4">
+                        <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-3xs flex items-center gap-4">
                             <div className="w-10 h-10 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center flex-shrink-0">
                                 <Phone size={20} />
                             </div>
                             <div>
-                                <h4 className="font-bold text-slate-900 text-sm">Call Support</h4>
-                                <p className="text-xs text-slate-500 mt-0.5">+1 (555) 123-4567</p>
+                                <h4 className="font-bold text-slate-900 dark:text-white text-sm">Call Support</h4>
+                                <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">+1 (555) 123-4567</p>
                             </div>
                         </div>
 
-                        <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-3xs flex items-center gap-4">
+                        <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-3xs flex items-center gap-4">
                             <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center flex-shrink-0">
                                 <MapPin size={20} />
                             </div>
                             <div>
-                                <h4 className="font-bold text-slate-900 text-sm">Headquarters</h4>
-                                <p className="text-xs text-slate-500 mt-0.5">Tech Plaza, NY, 10001</p>
+                                <h4 className="font-bold text-slate-900 dark:text-white text-sm">Headquarters</h4>
+                                <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Tech Plaza, NY, 10001</p>
                             </div>
                         </div>
 
@@ -88,14 +88,14 @@ const Contact = () => {
                             />
                             <div className="absolute inset-0 bg-slate-950/40 flex items-center justify-center">
                                 <span className="bg-white/95 text-slate-800 text-[10px] font-bold tracking-wide uppercase px-3 py-1.5 rounded-full shadow-md backdrop-blur-xs flex items-center gap-1.5">
-                                    <ShieldCheck size={12} className="text-pink-650" /> View Map Location
+                                    <ShieldCheck size={12} className="text-purple-600" /> View Map Location
                                 </span>
                             </div>
                         </div>
                     </div>
 
                     {/* Right: Contact Form */}
-                    <div className="md:col-span-2 bg-white rounded-3xl p-6 md:p-8 border border-slate-100 shadow-3xs">
+                    <div className="md:col-span-2 bg-white dark:bg-slate-900 rounded-3xl p-6 md:p-8 border border-slate-100 dark:border-slate-800 shadow-3xs">
                         <form onSubmit={handleFormSubmit} className="space-y-4">
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="grid gap-1.5">
@@ -144,7 +144,7 @@ const Contact = () => {
                                     placeholder="Write your details or questions here..."
                                     value={formData.message}
                                     onChange={handleInputChange}
-                                    className="w-full border border-slate-200 rounded-xl p-3 text-sm focus:border-pink-500 outline-none"
+                                    className="w-full border border-slate-200 dark:bg-slate-950 dark:border-slate-700 dark:text-white rounded-xl p-3 text-sm focus:border-purple-500 outline-none"
                                     required
                                 ></textarea>
                             </div>
@@ -152,7 +152,7 @@ const Contact = () => {
                             <Button
                                 type="submit"
                                 disabled={loading}
-                                className="w-full bg-pink-600 hover:bg-pink-700 text-white font-bold h-11 rounded-xl cursor-pointer gap-2 mt-4"
+                                className="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold h-11 rounded-xl cursor-pointer gap-2 mt-4"
                             >
                                 <Send size={16} /> {loading ? "Sending..." : "Send Message"}
                             </Button>

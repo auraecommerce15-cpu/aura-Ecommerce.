@@ -11,11 +11,13 @@ import {
   Laptop, Smartphone, Headphones, Watch,
   Check, Star, ArrowRight, ShoppingCart,
   Percent, Flame, Clock, Quote,
-  MessageSquarePlus, Eye, X
+  MessageSquarePlus, Eye, X, Sun, Moon
 } from "lucide-react";
+import { useTheme } from "@/context/ThemeContext";
 
 const Home = () => {
   const dispatch = useDispatch();
+  const { theme, toggleTheme } = useTheme();
   const [featuredProducts, setFeaturedProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -779,6 +781,28 @@ const Home = () => {
           </div>
         </div>
       )}
+
+      {/* ─── Floating Light / Dark Mode Toggle on Home Screen ─── */}
+      <div className="fixed bottom-6 right-6 z-40">
+        <button
+          onClick={toggleTheme}
+          aria-label="Toggle Theme Mode"
+          className="flex items-center gap-2.5 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-white px-4 py-2.5 rounded-full shadow-2xl hover:scale-105 transition-all duration-200 text-xs font-bold cursor-pointer hover:border-purple-500 shadow-purple-500/10 group"
+          title={`Switch to ${theme === "dark" ? "Light" : "Dark"} Mode`}
+        >
+          {theme === "dark" ? (
+            <>
+              <Sun size={16} className="text-amber-400 group-hover:rotate-45 transition-transform" />
+              <span>Light Mode</span>
+            </>
+          ) : (
+            <>
+              <Moon size={16} className="text-purple-600 group-hover:-rotate-12 transition-transform" />
+              <span>Dark Mode</span>
+            </>
+          )}
+        </button>
+      </div>
 
     </div>
   );

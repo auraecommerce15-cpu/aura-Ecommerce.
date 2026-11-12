@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { CreditCard, ShieldCheck, Banknote, Tag, X } from "lucide-react";
+import PageHero from "@/components/PageHero";
 
 const Checkout = () => {
     const dispatch = useDispatch();
@@ -134,32 +135,38 @@ const Checkout = () => {
 
     if (cartItems.length === 0) {
         return (
-            <div className="pt-28 pb-16 min-h-screen flex flex-col items-center justify-center bg-slate-50 text-center px-6">
-                <h2 className="text-2xl font-bold text-slate-800 mb-2">Checkout is Empty</h2>
-                <p className="text-slate-500 mb-6">You have no items in your cart to checkout.</p>
+            <div className="pt-28 pb-16 min-h-screen flex flex-col items-center justify-center bg-slate-50 dark:bg-slate-950 text-center px-6">
+                <h2 className="text-2xl font-bold text-slate-800 dark:text-white mb-2">Checkout is Empty</h2>
+                <p className="text-slate-500 dark:text-slate-400 mb-6">You have no items in your cart to checkout.</p>
                 <Link to="/products">
-                    <Button className="bg-pink-600 hover:bg-pink-700 text-white">Shop Products</Button>
+                    <Button className="bg-purple-600 hover:bg-purple-700 text-white">Shop Products</Button>
                 </Link>
             </div>
         );
     }
 
     return (
-        <div className="pt-28 pb-16 min-h-screen bg-slate-55/20">
-            <div className="max-w-6xl mx-auto px-6">
-                <h1 className="text-3xl font-extrabold text-slate-900 mb-8">Checkout</h1>
-
+        <div className="pb-16 min-h-screen bg-white dark:bg-slate-950">
+            <PageHero
+                badge="SECURE CHECKOUT"
+                title="Complete Your"
+                gradientText="Order"
+                subtitle="Secure, encrypted payment processing. Your data is always protected."
+                breadcrumbs={[{ label: "Home", to: "/" }, { label: "Cart", to: "/cart" }, { label: "Checkout", to: null }]}
+                rightIcon={CreditCard}
+            />
+            <div className="max-w-6xl mx-auto px-6 pt-8">
                 <form onSubmit={handleSubmitOrder} className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     
                     {/* Left & Middle: Forms */}
                     <div className="lg:col-span-2 space-y-6">
                         
                         {/* Shipping Details */}
-                        <div className="bg-white rounded-3xl p-6 md:p-8 border border-slate-100 shadow-2xs space-y-4">
-                            <h2 className="text-xl font-bold text-slate-900 mb-2">Shipping Address</h2>
+                        <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 md:p-8 border border-slate-100 dark:border-slate-800 shadow-2xs space-y-4">
+                            <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-2">Shipping Address</h2>
                             
                             <div className="grid gap-2">
-                                <Label htmlFor="address">Address</Label>
+                                <Label htmlFor="address" className="dark:text-slate-300">Address</Label>
                                 <Input
                                     id="address"
                                     name="address"
@@ -167,12 +174,13 @@ const Checkout = () => {
                                     value={shippingDetails.address}
                                     onChange={handleShippingChange}
                                     required
+                                    className="dark:bg-slate-950 dark:border-slate-700 dark:text-white"
                                 />
                             </div>
 
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="grid gap-2">
-                                    <Label htmlFor="city">City</Label>
+                                    <Label htmlFor="city" className="dark:text-slate-300">City</Label>
                                     <Input
                                         id="city"
                                         name="city"
@@ -180,10 +188,11 @@ const Checkout = () => {
                                         value={shippingDetails.city}
                                         onChange={handleShippingChange}
                                         required
+                                        className="dark:bg-slate-950 dark:border-slate-700 dark:text-white"
                                     />
                                 </div>
                                 <div className="grid gap-2">
-                                    <Label htmlFor="zipCode">Zip Code</Label>
+                                    <Label htmlFor="zipCode" className="dark:text-slate-300">Zip Code</Label>
                                     <Input
                                         id="zipCode"
                                         name="zipCode"
@@ -191,12 +200,13 @@ const Checkout = () => {
                                         value={shippingDetails.zipCode}
                                         onChange={handleShippingChange}
                                         required
+                                        className="dark:bg-slate-950 dark:border-slate-700 dark:text-white"
                                     />
                                 </div>
                             </div>
 
                             <div className="grid gap-2">
-                                <Label htmlFor="phoneNo">Phone Number</Label>
+                                <Label htmlFor="phoneNo" className="dark:text-slate-300">Phone Number</Label>
                                 <Input
                                     id="phoneNo"
                                     name="phoneNo"
@@ -204,15 +214,16 @@ const Checkout = () => {
                                     value={shippingDetails.phoneNo}
                                     onChange={handleShippingChange}
                                     required
+                                    className="dark:bg-slate-950 dark:border-slate-700 dark:text-white"
                                 />
                             </div>
                         </div>
 
                         {/* Payment Method Selector */}
-                        <div className="bg-white rounded-3xl p-6 md:p-8 border border-slate-100 shadow-2xs space-y-5">
+                        <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 md:p-8 border border-slate-100 dark:border-slate-800 shadow-2xs space-y-5">
                             <div className="flex justify-between items-center">
-                                <h2 className="text-xl font-bold text-slate-900">Payment Method</h2>
-                                <span className="flex items-center gap-1.5 text-xs text-green-600 font-bold bg-green-50 px-2.5 py-1 rounded-full">
+                                <h2 className="text-xl font-bold text-slate-900 dark:text-white">Payment Method</h2>
+                                <span className="flex items-center gap-1.5 text-xs text-green-600 font-bold bg-green-50 dark:bg-green-950/40 px-2.5 py-1 rounded-full">
                                     <ShieldCheck size={14} /> 256-bit Encrypted
                                 </span>
                             </div>
@@ -223,16 +234,16 @@ const Checkout = () => {
                                     onClick={() => setPaymentMethod("Card")}
                                     className={`p-4 rounded-2xl border text-left flex items-start gap-3 transition-all cursor-pointer ${
                                         paymentMethod === "Card"
-                                            ? "border-pink-600 bg-pink-50/40 ring-2 ring-pink-500/20"
-                                            : "border-slate-200 hover:border-slate-300 bg-white"
+                                            ? "border-purple-600 bg-purple-50/40 dark:bg-purple-950/20 ring-2 ring-purple-500/20"
+                                            : "border-slate-200 dark:border-slate-700 hover:border-slate-300 bg-white dark:bg-slate-800"
                                     }`}
                                 >
-                                    <div className={`p-2 rounded-xl ${paymentMethod === "Card" ? "bg-pink-600 text-white" : "bg-slate-100 text-slate-600"}`}>
+                                    <div className={`p-2 rounded-xl ${paymentMethod === "Card" ? "bg-purple-600 text-white" : "bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300"}`}>
                                         <CreditCard size={20} />
                                     </div>
                                     <div>
-                                        <div className="font-bold text-sm text-slate-900">Credit / Debit Card</div>
-                                        <p className="text-xs text-slate-500 mt-0.5">Instant online payment with mock verification</p>
+                                        <div className="font-bold text-sm text-slate-900 dark:text-white">Credit / Debit Card</div>
+                                        <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Instant online payment with mock verification</p>
                                     </div>
                                 </button>
 
@@ -241,25 +252,25 @@ const Checkout = () => {
                                     onClick={() => setPaymentMethod("Cash on Delivery")}
                                     className={`p-4 rounded-2xl border text-left flex items-start gap-3 transition-all cursor-pointer ${
                                         paymentMethod === "Cash on Delivery"
-                                            ? "border-pink-600 bg-pink-50/40 ring-2 ring-pink-500/20"
-                                            : "border-slate-200 hover:border-slate-300 bg-white"
+                                            ? "border-purple-600 bg-purple-50/40 dark:bg-purple-950/20 ring-2 ring-purple-500/20"
+                                            : "border-slate-200 dark:border-slate-700 hover:border-slate-300 bg-white dark:bg-slate-800"
                                     }`}
                                 >
-                                    <div className={`p-2 rounded-xl ${paymentMethod === "Cash on Delivery" ? "bg-pink-600 text-white" : "bg-slate-100 text-slate-600"}`}>
+                                    <div className={`p-2 rounded-xl ${paymentMethod === "Cash on Delivery" ? "bg-purple-600 text-white" : "bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300"}`}>
                                         <Banknote size={20} />
                                     </div>
                                     <div>
-                                        <div className="font-bold text-sm text-slate-900">Cash on Delivery</div>
-                                        <p className="text-xs text-slate-500 mt-0.5">Pay in cash or card when your package arrives</p>
+                                        <div className="font-bold text-sm text-slate-900 dark:text-white">Cash on Delivery</div>
+                                        <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Pay in cash or card when your package arrives</p>
                                     </div>
                                 </button>
                             </div>
 
                             {/* Card Details (Only if Card selected) */}
                             {paymentMethod === "Card" ? (
-                                <div className="space-y-4 pt-4 border-t border-slate-100">
+                                <div className="space-y-4 pt-4 border-t border-slate-100 dark:border-slate-800">
                                     <div className="grid gap-2">
-                                        <Label htmlFor="cardholderName">Cardholder Name</Label>
+                                        <Label htmlFor="cardholderName" className="dark:text-slate-300">Cardholder Name</Label>
                                         <Input
                                             id="cardholderName"
                                             name="cardholderName"
@@ -267,11 +278,12 @@ const Checkout = () => {
                                             value={cardDetails.cardholderName}
                                             onChange={handleCardChange}
                                             required={paymentMethod === "Card"}
+                                            className="dark:bg-slate-950 dark:border-slate-700 dark:text-white"
                                         />
                                     </div>
 
                                     <div className="grid gap-2">
-                                        <Label htmlFor="cardNumber">Card Number</Label>
+                                        <Label htmlFor="cardNumber" className="dark:text-slate-300">Card Number</Label>
                                         <div className="relative">
                                             <Input
                                                 id="cardNumber"
@@ -281,6 +293,7 @@ const Checkout = () => {
                                                 value={cardDetails.cardNumber}
                                                 onChange={handleCardChange}
                                                 required={paymentMethod === "Card"}
+                                                className="dark:bg-slate-950 dark:border-slate-700 dark:text-white"
                                             />
                                             <CreditCard className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
                                         </div>
@@ -288,7 +301,7 @@ const Checkout = () => {
 
                                     <div className="grid grid-cols-2 gap-4">
                                         <div className="grid gap-2">
-                                            <Label htmlFor="expiry">Expiry Date</Label>
+                                            <Label htmlFor="expiry" className="dark:text-slate-300">Expiry Date</Label>
                                             <Input
                                                 id="expiry"
                                                 name="expiry"
@@ -297,10 +310,11 @@ const Checkout = () => {
                                                 value={cardDetails.expiry}
                                                 onChange={handleCardChange}
                                                 required={paymentMethod === "Card"}
+                                                className="dark:bg-slate-950 dark:border-slate-700 dark:text-white"
                                             />
                                         </div>
                                         <div className="grid gap-2">
-                                            <Label htmlFor="cvv">CVV</Label>
+                                            <Label htmlFor="cvv" className="dark:text-slate-300">CVV</Label>
                                             <Input
                                                 id="cvv"
                                                 name="cvv"
@@ -310,12 +324,13 @@ const Checkout = () => {
                                                 value={cardDetails.cvv}
                                                 onChange={handleCardChange}
                                                 required={paymentMethod === "Card"}
+                                                className="dark:bg-slate-950 dark:border-slate-700 dark:text-white"
                                             />
                                         </div>
                                     </div>
                                 </div>
                             ) : (
-                                <div className="p-4 rounded-2xl bg-amber-50/70 border border-amber-200 text-amber-900 text-xs">
+                                <div className="p-4 rounded-2xl bg-amber-50/70 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-900 text-amber-900 dark:text-amber-300 text-xs">
                                     <strong>Cash on Delivery (COD) Selected:</strong> No upfront payment is required now. You can inspect your package and pay the courier upon delivery.
                                 </div>
                             )}
@@ -323,33 +338,33 @@ const Checkout = () => {
                     </div>
 
                     {/* Right: Order Summary Checkout Sidebar */}
-                    <div className="bg-white rounded-3xl p-6 border border-slate-100 shadow-2xs h-fit space-y-6">
-                        <h3 className="font-bold text-slate-900 text-lg border-b border-slate-100 pb-4">
+                    <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-100 dark:border-slate-800 shadow-2xs h-fit space-y-6">
+                        <h3 className="font-bold text-slate-900 dark:text-white text-lg border-b border-slate-100 dark:border-slate-800 pb-4">
                             Review Items
                         </h3>
 
                         {/* Mini cart items list */}
-                        <div className="max-h-60 overflow-y-auto divide-y divide-slate-100 pr-1">
+                        <div className="max-h-60 overflow-y-auto divide-y divide-slate-100 dark:divide-slate-800 pr-1">
                             {cartItems.map((item) => (
                                 <div key={item.product} className="flex gap-3 py-3 items-center">
                                     <img
                                         src={item.image}
                                         alt={item.name}
-                                        className="w-12 h-12 object-cover rounded-lg border border-slate-100 bg-slate-50 flex-shrink-0"
+                                        className="w-12 h-12 object-cover rounded-lg border border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 flex-shrink-0"
                                     />
                                     <div className="min-w-0 flex-grow">
-                                        <h4 className="text-xs font-bold text-slate-800 truncate">{item.name}</h4>
+                                        <h4 className="text-xs font-bold text-slate-800 dark:text-white truncate">{item.name}</h4>
                                         <span className="text-xs text-slate-400">Qty: {item.qty}</span>
                                     </div>
-                                    <span className="text-xs font-black text-slate-900">${(item.price * item.qty).toFixed(2)}</span>
+                                    <span className="text-xs font-black text-slate-900 dark:text-white">${(item.price * item.qty).toFixed(2)}</span>
                                 </div>
                             ))}
                         </div>
 
                         {/* Coupon Code Section */}
-                        <div className="pt-2 border-t border-slate-100">
+                        <div className="pt-2 border-t border-slate-100 dark:border-slate-800">
                             {appliedCoupon ? (
-                                <div className="flex items-center justify-between p-2.5 rounded-xl bg-pink-50 border border-pink-200 text-pink-700 text-xs">
+                                <div className="flex items-center justify-between p-2.5 rounded-xl bg-purple-50 dark:bg-purple-950/30 border border-purple-200 dark:border-purple-800 text-purple-700 dark:text-purple-300 text-xs">
                                     <div className="flex items-center gap-2">
                                         <Tag size={14} />
                                         <span className="font-bold">Code "{appliedCoupon}" Applied (-10%)</span>
@@ -357,7 +372,7 @@ const Checkout = () => {
                                     <button
                                         type="button"
                                         onClick={handleRemoveCoupon}
-                                        className="p-1 hover:bg-pink-100 rounded-full text-pink-700 cursor-pointer"
+                                        className="p-1 hover:bg-purple-100 dark:hover:bg-purple-900/40 rounded-full text-purple-700 dark:text-purple-300 cursor-pointer"
                                     >
                                         <X size={14} />
                                     </button>
@@ -368,12 +383,12 @@ const Checkout = () => {
                                         placeholder="Promo code (e.g. AURA10)"
                                         value={couponInput}
                                         onChange={(e) => setCouponInput(e.target.value)}
-                                        className="text-xs h-9"
+                                        className="text-xs h-9 dark:bg-slate-950 dark:border-slate-700 dark:text-white"
                                     />
                                     <Button
                                         type="button"
                                         onClick={handleApplyCoupon}
-                                        className="bg-slate-900 hover:bg-slate-800 text-white text-xs h-9 px-3 cursor-pointer"
+                                        className="bg-slate-900 hover:bg-slate-800 dark:bg-slate-700 dark:hover:bg-slate-600 text-white text-xs h-9 px-3 cursor-pointer"
                                     >
                                         Apply
                                     </Button>
@@ -381,40 +396,40 @@ const Checkout = () => {
                             )}
                         </div>
 
-                        <hr className="border-slate-100" />
+                        <hr className="border-slate-100 dark:border-slate-800" />
 
                         <div className="space-y-3.5 text-xs">
-                            <div className="flex justify-between text-slate-500">
+                            <div className="flex justify-between text-slate-500 dark:text-slate-400">
                                 <span>Subtotal</span>
-                                <span className="font-bold text-slate-850">${itemsPrice.toFixed(2)}</span>
+                                <span className="font-bold text-slate-850 dark:text-white">${itemsPrice.toFixed(2)}</span>
                             </div>
                             {discountPrice > 0 && (
-                                <div className="flex justify-between text-pink-600 font-bold">
+                                <div className="flex justify-between text-purple-600 dark:text-purple-400 font-bold">
                                     <span>Discount (AURA10)</span>
                                     <span>-${discountPrice.toFixed(2)}</span>
                                 </div>
                             )}
-                            <div className="flex justify-between text-slate-500">
+                            <div className="flex justify-between text-slate-500 dark:text-slate-400">
                                 <span>Shipping</span>
-                                <span className="font-bold text-slate-850">
+                                <span className="font-bold text-slate-850 dark:text-white">
                                     {shippingPrice === 0 ? "FREE" : `$${shippingPrice.toFixed(2)}`}
                                 </span>
                             </div>
-                            <div className="flex justify-between text-slate-500">
+                            <div className="flex justify-between text-slate-500 dark:text-slate-400">
                                 <span>Tax (8%)</span>
-                                <span className="font-bold text-slate-850">${taxPrice.toFixed(2)}</span>
+                                <span className="font-bold text-slate-850 dark:text-white">${taxPrice.toFixed(2)}</span>
                             </div>
-                            <hr className="border-slate-100" />
-                            <div className="flex justify-between text-base font-bold text-slate-900">
+                            <hr className="border-slate-100 dark:border-slate-800" />
+                            <div className="flex justify-between text-base font-bold text-slate-900 dark:text-white">
                                 <span>Total Price</span>
-                                <span className="text-xl font-black text-pink-600">${totalPrice.toFixed(2)}</span>
+                                <span className="text-xl font-black text-purple-600 dark:text-purple-400">${totalPrice.toFixed(2)}</span>
                             </div>
                         </div>
 
                         <Button
                             type="submit"
                             disabled={loading}
-                            className="w-full bg-pink-600 hover:bg-pink-700 text-white font-bold h-12 rounded-xl cursor-pointer"
+                            className="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold h-12 rounded-xl cursor-pointer"
                         >
                             {loading
                                 ? "Processing Order..."

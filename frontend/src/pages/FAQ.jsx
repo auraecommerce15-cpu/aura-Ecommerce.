@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { HelpCircle, ChevronDown, ChevronUp } from "lucide-react";
+import PageHero from "@/components/PageHero";
 
 const FAQ = () => {
     const faqData = [
@@ -32,19 +33,16 @@ const FAQ = () => {
     };
 
     return (
-        <div className="pt-28 pb-16 bg-slate-50/50 min-h-screen">
-            <div className="max-w-3xl mx-auto px-6 space-y-12">
-                
-                {/* Header */}
-                <div className="text-center space-y-3">
-                    <div className="w-12 h-12 rounded-2xl bg-pink-50 text-pink-600 flex items-center justify-center mx-auto mb-2">
-                        <HelpCircle size={24} />
-                    </div>
-                    <h1 className="text-3xl font-extrabold text-slate-900">Frequently Asked Questions</h1>
-                    <p className="text-slate-500 text-sm max-w-md mx-auto">
-                        Find answers to common queries about order placements, shipping speeds, returns, and support.
-                    </p>
-                </div>
+        <div className="pb-16 bg-white dark:bg-slate-950 min-h-screen">
+            <PageHero
+                badge="HELP CENTER"
+                title="FAQ &"
+                gradientText="Support"
+                subtitle="Find answers to common questions about orders, shipping, returns, and products."
+                breadcrumbs={[{ label: "Home", to: "/" }, { label: "FAQ", to: null }]}
+                rightIcon={HelpCircle}
+            />
+            <div className="max-w-3xl mx-auto px-6 space-y-12 pt-8">
 
                 {/* Accordion List */}
                 <div className="space-y-4">
@@ -54,13 +52,13 @@ const FAQ = () => {
                         return (
                             <div
                                 key={idx}
-                                className="bg-white rounded-2xl border border-slate-100 shadow-3xs overflow-hidden transition-all duration-300"
+                                className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-3xs overflow-hidden transition-all duration-300"
                             >
                                 <button
                                     onClick={() => toggleFAQ(idx)}
-                                    className="w-full text-left p-5 md:p-6 flex justify-between items-center gap-4 cursor-pointer hover:bg-slate-50/50 transition-colors"
+                                    className="w-full text-left p-5 md:p-6 flex justify-between items-center gap-4 cursor-pointer hover:bg-slate-50/50 dark:hover:bg-slate-800/50 transition-colors"
                                 >
-                                    <span className="font-bold text-slate-800 text-sm md:text-base leading-snug">
+                                    <span className="font-bold text-slate-800 dark:text-white text-sm md:text-base leading-snug">
                                         {faq.q}
                                     </span>
                                     <span className="text-slate-400 flex-shrink-0">
@@ -69,7 +67,7 @@ const FAQ = () => {
                                 </button>
 
                                 {isOpen && (
-                                    <div className="px-5 pb-5 md:px-6 md:pb-6 text-slate-600 text-xs md:text-sm leading-relaxed border-t border-slate-50 pt-4 animate-fade-in">
+                                    <div className="px-5 pb-5 md:px-6 md:pb-6 text-slate-600 dark:text-slate-400 text-xs md:text-sm leading-relaxed border-t border-slate-50 dark:border-slate-800 pt-4 animate-fade-in">
                                         {faq.a}
                                     </div>
                                 )}
@@ -79,13 +77,13 @@ const FAQ = () => {
                 </div>
 
                 {/* Footer Help Alert */}
-                <div className="bg-white border border-slate-100 rounded-3xl p-6 text-center space-y-3 shadow-3xs">
-                    <h3 className="font-bold text-slate-900 text-sm md:text-base">Still have questions?</h3>
-                    <p className="text-slate-500 text-xs leading-relaxed max-w-sm mx-auto">
+                <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-3xl p-6 text-center space-y-3 shadow-3xs">
+                    <h3 className="font-bold text-slate-900 dark:text-white text-sm md:text-base">Still have questions?</h3>
+                    <p className="text-slate-500 dark:text-slate-400 text-xs leading-relaxed max-w-sm mx-auto">
                         Can't find the answer you're looking for? Reach out directly to our customer support desk.
                     </p>
                     <div className="pt-2">
-                        <a href="/contact" className="inline-block text-xs font-bold text-white bg-pink-650 hover:bg-pink-700 px-5 py-2.5 rounded-xl shadow-xs transition-colors">
+                        <a href="/contact" className="inline-block text-xs font-bold text-white bg-purple-600 hover:bg-purple-700 px-5 py-2.5 rounded-xl shadow-xs transition-colors">
                             Contact Support
                         </a>
                     </div>

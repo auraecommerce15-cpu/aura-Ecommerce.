@@ -9,6 +9,7 @@ import {
   Flame, Clock, Star, ShoppingCart, ArrowRight,
   Sparkles, Tag, ShieldCheck, Zap
 } from "lucide-react";
+import PageHero from "@/components/PageHero";
 
 const Deals = () => {
   const dispatch = useDispatch();
@@ -78,44 +79,37 @@ const Deals = () => {
   });
 
   return (
-    <div className="pt-28 pb-24 bg-slate-950 text-white min-h-screen">
-      <div className="max-w-7xl mx-auto px-6 space-y-12">
-        {/* Hero Banner Header */}
-        <div className="relative rounded-3xl overflow-hidden bg-gradient-to-r from-pink-950/40 via-purple-950/30 to-slate-900/50 border border-pink-500/20 p-8 md:p-14">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl pointer-events-none" />
-          <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
-            <div className="space-y-4 max-w-2xl">
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-pink-500/20 border border-pink-500/30 text-pink-400 text-xs font-black uppercase tracking-wider">
-                <Flame size={14} className="fill-pink-400" /> Exclusive Daily Flash Sales
-              </div>
-              <h1 className="text-4xl md:text-6xl font-black tracking-tight leading-tight">
-                Deals of the <span className="bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">Product</span>
-              </h1>
-              <p className="text-slate-400 text-sm md:text-base leading-relaxed">
-                Save up to 35% on top-tier premium laptops, smartphones, headphones, and electronics. All offers include authentic warranty and complimentary express shipping.
-              </p>
-            </div>
+    <div className="pb-24 bg-white dark:bg-slate-950 text-slate-900 dark:text-white min-h-screen">
+      <PageHero
+        badge="FLASH DEALS"
+        title="Deals of the"
+        gradientText="Day"
+        subtitle="Limited-time offers on premium electronics. Up to 35% off — while stock lasts."
+        breadcrumbs={[{ label: "Home", to: "/" }, { label: "Deals", to: null }]}
+        rightIcon={Flame}
+      />
+      <div className="max-w-7xl mx-auto px-6 space-y-12 pt-10">
 
-            {/* Countdown Box */}
-            <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 backdrop-blur-md shrink-0 space-y-2">
-              <div className="flex items-center gap-2 text-pink-400 text-xs font-bold uppercase tracking-widest">
-                <Clock size={15} /> Flash Sale Ends In:
+        {/* Countdown Timer */}
+        <div className="flex justify-center">
+          <div className="bg-slate-900/80 dark:bg-slate-900/80 border border-slate-800 rounded-2xl p-6 backdrop-blur-md shrink-0 space-y-2">
+            <div className="flex items-center gap-2 text-purple-400 text-xs font-bold uppercase tracking-widest">
+              <Clock size={15} /> Flash Sale Ends In:
+            </div>
+            <div className="flex items-center gap-2 font-mono text-2xl font-black text-white">
+              <div className="bg-slate-800 px-3 py-2 rounded-xl border border-slate-700">
+                {String(timeLeft.hours).padStart(2, "0")}
+                <span className="block text-[9px] font-sans font-medium text-slate-400 uppercase">Hours</span>
               </div>
-              <div className="flex items-center gap-2 font-mono text-2xl font-black">
-                <div className="bg-slate-800 px-3 py-2 rounded-xl border border-slate-700">
-                  {String(timeLeft.hours).padStart(2, "0")}
-                  <span className="block text-[9px] font-sans font-medium text-slate-400 uppercase">Hours</span>
-                </div>
-                <span>:</span>
-                <div className="bg-slate-800 px-3 py-2 rounded-xl border border-slate-700">
-                  {String(timeLeft.minutes).padStart(2, "0")}
-                  <span className="block text-[9px] font-sans font-medium text-slate-400 uppercase">Mins</span>
-                </div>
-                <span>:</span>
-                <div className="bg-slate-800 px-3 py-2 rounded-xl border border-slate-700 text-pink-400">
-                  {String(timeLeft.seconds).padStart(2, "0")}
-                  <span className="block text-[9px] font-sans font-medium text-slate-400 uppercase">Secs</span>
-                </div>
+              <span>:</span>
+              <div className="bg-slate-800 px-3 py-2 rounded-xl border border-slate-700">
+                {String(timeLeft.minutes).padStart(2, "0")}
+                <span className="block text-[9px] font-sans font-medium text-slate-400 uppercase">Mins</span>
+              </div>
+              <span>:</span>
+              <div className="bg-slate-800 px-3 py-2 rounded-xl border border-slate-700 text-purple-400">
+                {String(timeLeft.seconds).padStart(2, "0")}
+                <span className="block text-[9px] font-sans font-medium text-slate-400 uppercase">Secs</span>
               </div>
             </div>
           </div>
@@ -124,12 +118,12 @@ const Deals = () => {
         {/* Feature Badges */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {[
-            { icon: <Zap size={18} className="text-pink-400" />, title: "Instant Savings", desc: "Auto-applied at checkout" },
+            { icon: <Zap size={18} className="text-purple-400" />, title: "Instant Savings", desc: "Auto-applied at checkout" },
             { icon: <ShieldCheck size={18} className="text-teal-400" />, title: "100% Genuine", desc: "Full manufacturer warranty" },
             { icon: <Tag size={18} className="text-amber-400" />, title: "Best Price Guarantee", desc: "Price-match on all deals" },
             { icon: <Sparkles size={18} className="text-purple-400" />, title: "Free Express Shipping", desc: "2-3 business days" },
           ].map((b, i) => (
-            <div key={i} className="bg-slate-900/40 border border-slate-800/80 rounded-2xl p-4 flex items-center gap-3">
+            <div key={i} className="bg-slate-900/40 dark:bg-slate-900 border border-slate-800/80 dark:border-slate-800 rounded-2xl p-4 flex items-center gap-3">
               <div className="p-2.5 rounded-xl bg-slate-800/60 shrink-0">{b.icon}</div>
               <div>
                 <h5 className="font-bold text-xs text-white">{b.title}</h5>
@@ -151,7 +145,7 @@ const Deals = () => {
             {dealProducts.map((p) => (
               <div
                 key={p._id}
-                className="group bg-slate-900/60 border border-slate-800/80 rounded-3xl overflow-hidden hover:border-pink-500/40 shadow-xl hover:shadow-pink-500/10 transition-all duration-400 flex flex-col"
+                className="group bg-slate-900/60 dark:bg-slate-900 border border-slate-800/80 dark:border-slate-800 rounded-3xl overflow-hidden hover:border-purple-500/40 shadow-xl hover:shadow-purple-500/10 transition-all duration-400 flex flex-col"
               >
                 {/* Image */}
                 <div className="relative bg-slate-950 overflow-hidden h-60">
@@ -161,7 +155,7 @@ const Deals = () => {
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 to-transparent" />
-                  <span className="absolute top-4 left-4 bg-gradient-to-r from-pink-600 to-purple-600 text-white text-[11px] font-black uppercase tracking-wider px-3 py-1 rounded-full shadow-lg">
+                  <span className="absolute top-4 left-4 bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-[11px] font-black uppercase tracking-wider px-3 py-1 rounded-full shadow-lg">
                     -{p.discount}% OFF
                   </span>
                   <span className="absolute top-4 right-4 bg-slate-950/80 border border-slate-800 text-[10px] text-slate-300 font-bold px-2.5 py-1 rounded-full backdrop-blur-sm">
@@ -177,7 +171,7 @@ const Deals = () => {
                 {/* Body */}
                 <div className="p-6 flex flex-col flex-grow space-y-4">
                   <div>
-                    <Link to={`/product/${p._id}`} className="hover:text-pink-400 transition-colors block">
+                    <Link to={`/product/${p._id}`} className="hover:text-purple-400 transition-colors block">
                       <h4 className="font-extrabold text-lg text-white truncate leading-snug">{p.name}</h4>
                     </Link>
                     <p className="text-xs text-slate-400 line-clamp-2 mt-1 leading-relaxed">
@@ -205,11 +199,11 @@ const Deals = () => {
                   <div className="space-y-1.5">
                     <div className="flex justify-between text-[11px] font-bold">
                       <span className="text-slate-400">Claimed <strong className="text-white">{p.claimedPercent}%</strong></span>
-                      <span className="text-pink-400">Only {p.stockLeft} left</span>
+                      <span className="text-purple-400">Only {p.stockLeft} left</span>
                     </div>
                     <div className="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
                       <div
-                        className="bg-gradient-to-r from-pink-500 to-purple-600 h-full rounded-full"
+                        className="bg-gradient-to-r from-purple-500 to-indigo-600 h-full rounded-full"
                         style={{ width: `${p.claimedPercent}%` }}
                       />
                     </div>
@@ -227,7 +221,7 @@ const Deals = () => {
                     <Button
                       disabled={p.stock === 0}
                       onClick={(e) => handleAddToCart(p, e)}
-                      className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white h-10 rounded-xl px-4 cursor-pointer text-xs gap-1.5 font-bold shadow-md hover:scale-105 transition-all"
+                      className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white h-10 rounded-xl px-4 cursor-pointer text-xs gap-1.5 font-bold shadow-md hover:scale-105 transition-all"
                     >
                       <ShoppingCart size={14} /> Buy Now
                     </Button>

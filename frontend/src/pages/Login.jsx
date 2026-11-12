@@ -114,11 +114,11 @@ const Login = () => {
         
       </CardContent>
       <CardFooter className="flex-col gap-2">
-        <Button onClick={submitHandler} className="w-full bg-pink-500">
+        <Button onClick={submitHandler} className="w-full bg-purple-600">
 
           {loading? <><Loader2 className='h-4 w-4 animate-spin mr-2'/>Please wait</>:'Log In'}
         </Button>
-        <p>Don't have an account? <Link to={'/signup'} className='hover:underline cursor-pointer text-pink-800'>Sign up</Link></p>
+        <p>Don't have an account? <Link to={'/signup'} className='hover:underline cursor-pointer text-purple-600'>Sign up</Link></p>
       </CardFooter>
     </Card>
     </div>

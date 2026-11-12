@@ -133,11 +133,11 @@ const submitHandler= async(e)=>{
         
       </CardContent>
       <CardFooter className="flex-col gap-2">
-        <Button onClick={submitHandler} className="w-full bg-pink-500">
+        <Button onClick={submitHandler} className="w-full bg-purple-600">
 
           {loading? <><Loader2 className='h-4 w-4 animate-spin mr-2'/>Please wait</>:'Sign Up'}
         </Button>
-        <p>Already have an account? <Link to={'/login'} className='hover:underline cursor-pointer text-pink-800'>Login</Link></p>
+        <p>Already have an account? <Link to={'/login'} className='hover:underline cursor-pointer text-purple-600'>Login</Link></p>
       </CardFooter>
     </Card>
     </div>

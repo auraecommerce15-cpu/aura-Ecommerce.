@@ -1,9 +1,11 @@
 import React from "react";
-import { Sparkles, Heart, Shield, Users } from "lucide-react";
+import { Sparkles, Heart, Shield } from "lucide-react";
+import PageHero from "@/components/PageHero";
+import { Award } from "lucide-react";
 
 const About = () => {
     const values = [
-        { title: "Innovation First", text: "We constantly scout for next-generation technology to bring you tools that empower your work and creative projects.", icon: <Sparkles className="text-pink-600" size={24} />, bg: "bg-pink-50" },
+        { title: "Innovation First", text: "We constantly scout for next-generation technology to bring you tools that empower your work and creative projects.", icon: <Sparkles className="text-purple-600" size={24} />, bg: "bg-purple-50" },
         { title: "Customer Passion", text: "Your satisfaction drives us. We back every product with 24/7 technical support and hassle-free returns.", icon: <Heart className="text-rose-600" size={24} />, bg: "bg-rose-50" },
         { title: "Uncompromising Quality", text: "Every device in our catalog undergoes testing to guarantee performance, authenticity, and longevity.", icon: <Shield className="text-blue-600" size={24} />, bg: "bg-blue-50" }
     ];
@@ -15,45 +17,53 @@ const About = () => {
     ];
 
     return (
-        <div className="pt-28 pb-16 bg-slate-50/50 min-h-screen">
-            <div className="max-w-5xl mx-auto px-6 space-y-16">
+        <div className="pb-16 bg-white dark:bg-slate-950 min-h-screen">
+            <PageHero
+                badge="OUR STORY"
+                title="About"
+                gradientText="AURA"
+                subtitle="Powering your digital workspace with curated premium electronics since 2026."
+                breadcrumbs={[{ label: "Home", to: "/" }, { label: "About", to: null }]}
+                rightIcon={Award}
+            />
+            <div className="max-w-5xl mx-auto px-6 space-y-16 pt-10">
                 
                 {/* Hero / Vision Statement */}
                 <div className="text-center space-y-4 max-w-2xl mx-auto">
-                    <span className="text-xs font-bold uppercase tracking-wider text-pink-600">Who We Are</span>
-                    <h1 className="text-4xl font-extrabold text-slate-900 leading-tight">
+                    <span className="text-xs font-bold uppercase tracking-wider text-purple-600">Who We Are</span>
+                    <h1 className="text-4xl font-extrabold text-slate-900 dark:text-white leading-tight">
                         Powering Your <br />
                         Digital Workspace Since 2026
                     </h1>
-                    <p className="text-slate-500 text-sm leading-relaxed">
+                    <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
                         At Aura, we believe that the tools you use define the quality of your output. We curate high-end laptops, phones, smart devices, and accessories designed to help creators, engineers, and professionals reach their peak performance.
                     </p>
                 </div>
 
                 {/* Company Values Grid */}
                 <div className="space-y-8">
-                    <h2 className="text-2xl font-bold text-slate-900 text-center">Our Core Pillars</h2>
+                    <h2 className="text-2xl font-bold text-slate-900 dark:text-white text-center">Our Core Pillars</h2>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                         {values.map((v) => (
-                            <div key={v.title} className="bg-white p-6 rounded-2xl border border-slate-100 shadow-3xs hover:shadow-xs transition-shadow space-y-4">
+                            <div key={v.title} className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-3xs hover:shadow-xs transition-shadow space-y-4">
                                 <div className={`w-12 h-12 rounded-xl ${v.bg} flex items-center justify-center`}>
                                     {v.icon}
                                 </div>
-                                <h3 className="font-bold text-slate-800 text-base">{v.title}</h3>
-                                <p className="text-slate-500 text-xs leading-relaxed">{v.text}</p>
+                                <h3 className="font-bold text-slate-800 dark:text-white text-base">{v.title}</h3>
+                                <p className="text-slate-500 dark:text-slate-400 text-xs leading-relaxed">{v.text}</p>
                             </div>
                         ))}
                     </div>
                 </div>
 
                 {/* Brand Story (Divided Section) */}
-                <div className="grid md:grid-cols-2 gap-8 items-center bg-white p-8 md:p-12 rounded-3xl border border-slate-100 shadow-3xs">
+                <div className="grid md:grid-cols-2 gap-8 items-center bg-white dark:bg-slate-900 p-8 md:p-12 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-3xs">
                     <div className="space-y-4">
-                        <h2 className="text-2xl font-bold text-slate-900">The Story of Aura</h2>
-                        <p className="text-slate-600 text-xs leading-relaxed">
+                        <h2 className="text-2xl font-bold text-slate-900 dark:text-white">The Story of Aura</h2>
+                        <p className="text-slate-600 dark:text-slate-400 text-xs leading-relaxed">
                             Aura was born out of frustration with complex, cluttered tech shopping. We wanted to build a MERN-powered e-commerce portal that prioritizes visual clarity, fast responsiveness, and curated electronics.
                         </p>
-                        <p className="text-slate-600 text-xs leading-relaxed">
+                        <p className="text-slate-600 dark:text-slate-400 text-xs leading-relaxed">
                             From a small workspace setup, we have expanded to support thousands of customers across the globe. Today, we partner directly with certified manufacturers to offer unbeatable rates, fast dispatch timelines, and an authentic product portfolio.
                         </p>
                     </div>
@@ -70,19 +80,19 @@ const About = () => {
                 {/* Team Grid */}
                 <div className="space-y-8">
                     <div className="text-center space-y-2">
-                        <h2 className="text-2xl font-bold text-slate-900">Meet the Team</h2>
-                        <p className="text-xs text-slate-500">The minds behind Aura's product curation and technology stack</p>
+                        <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Meet the Team</h2>
+                        <p className="text-xs text-slate-500 dark:text-slate-400">The minds behind Aura's product curation and technology stack</p>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                         {team.map((t) => (
-                            <div key={t.name} className="bg-white p-6 rounded-2xl border border-slate-100 shadow-3xs text-center flex flex-col items-center hover:scale-[1.01] transition-transform">
+                            <div key={t.name} className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-3xs text-center flex flex-col items-center hover:scale-[1.01] transition-transform">
                                 <div className="w-14 h-14 rounded-full bg-slate-900 text-white font-extrabold flex items-center justify-center mb-4">
                                     {t.avatar}
                                 </div>
-                                <h4 className="font-bold text-slate-800 text-sm">{t.name}</h4>
-                                <span className="text-xs text-pink-600 font-bold mb-3">{t.role}</span>
-                                <p className="text-slate-500 text-xs leading-relaxed max-w-[200px]">
+                                <h4 className="font-bold text-slate-800 dark:text-white text-sm">{t.name}</h4>
+                                <span className="text-xs text-purple-500 dark:text-purple-400 font-bold mb-3">{t.role}</span>
+                                <p className="text-slate-500 dark:text-slate-400 text-xs leading-relaxed max-w-[200px]">
                                     {t.desc}
                                 </p>
                             </div>

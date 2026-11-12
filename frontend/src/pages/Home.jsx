@@ -114,10 +114,10 @@ const Home = () => {
         if (res.data.success) setFeaturedProducts(res.data.products.slice(0, 8));
       } catch {
         setFeaturedProducts([
-          { _id: "1", name: "MacBook Pro M3",       price: 1599, category: "Laptops",      image: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=500&auto=format&fit=crop&q=60", rating: 4.8, numReviews: 12, stock: 5  },
-          { _id: "2", name: "iPhone 15 Pro",        price: 999,  category: "Smartphones",  image: "https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?w=500&auto=format&fit=crop&q=60", rating: 4.6, numReviews: 18, stock: 10 },
-          { _id: "3", name: "Sony WH-1000XM5",      price: 349,  category: "Headphones",   image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&auto=format&fit=crop&q=60", rating: 4.7, numReviews: 24, stock: 8  },
-          { _id: "4", name: "Apple Watch Series 9", price: 399,  category: "Smartwatches", image: "https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?w=500&auto=format&fit=crop&q=60", rating: 4.5, numReviews: 6,  stock: 4  },
+          { _id: "1", name: "PlayStation 5 Console", price: 499, category: "Gaming",       image: "https://images.unsplash.com/photo-1606813907291-d86efa9b94db?w=600&auto=format&fit=crop&q=80", rating: 4.9, numReviews: 38, stock: 8  },
+          { _id: "2", name: "Smartwatch Ultra",      price: 299, category: "Smartwatches", image: "https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?w=600&auto=format&fit=crop&q=80", rating: 4.7, numReviews: 24, stock: 12 },
+          { _id: "3", name: "Wireless ANC Earbuds",  price: 179, category: "Headphones",   image: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=600&auto=format&fit=crop&q=80", rating: 4.8, numReviews: 45, stock: 15 },
+          { _id: "4", name: "Pro Laptop Ultrabook",  price: 1299, category: "Laptops",     image: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600&auto=format&fit=crop&q=80", rating: 4.9, numReviews: 19, stock: 6  },
         ]);
       } finally {
         setLoading(false);
@@ -146,7 +146,7 @@ const Home = () => {
   });
 
   return (
-    <div className="pt-16 bg-slate-50/60 dark:bg-slate-950 min-h-screen">
+    <div className="pt-18 bg-white dark:bg-slate-950 min-h-screen">
 
       {/* ─────────── 1. Hero ─────────── */}
       <Hero />
@@ -154,33 +154,31 @@ const Home = () => {
       {/* ─────────── 2. Floating Features Badges (Matching Flyer Layout) ─────────── */}
       <Features />
 
-      {/* ─────────── 3. Our Popular Products (Matching Flyer Layout) ─────────── */}
-      <section className="pt-24 pb-16 max-w-7xl mx-auto px-6">
-        <div className="flex justify-between items-end mb-10">
-          <div>
-            <div className="flex items-center gap-2 mb-2">
-              <span className="w-2 h-2 rounded-full bg-purple-600 animate-pulse" />
-              <span className="text-[11px] font-black uppercase tracking-[0.2em] text-purple-600 dark:text-purple-400">
-                Trending Electronics
-              </span>
-            </div>
-            <h2 className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight leading-none">
-              Our Popular Products
-            </h2>
+      {/* ─────────── 3. Our Popular Products (Exact Match With Mockup) ─────────── */}
+      <section className="pt-20 pb-16 max-w-7xl mx-auto px-6">
+        
+        {/* Header: Centered title with purple pill underneath, View All on right */}
+        <div className="relative mb-12 flex flex-col items-center">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight text-center">
+            Our Popular Products
+          </h2>
+          <div className="w-14 h-1 bg-purple-600 rounded-full mt-3" />
+          
+          <div className="mt-4 sm:mt-0 sm:absolute sm:right-0 sm:top-1/2 sm:-translate-y-1/2">
+            <Link
+              to="/products"
+              className="text-purple-600 dark:text-purple-400 hover:text-purple-700 font-bold text-sm inline-flex items-center gap-1 group transition-colors"
+            >
+              <span>View All</span>
+              <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform" />
+            </Link>
           </div>
-          <Link
-            to="/products"
-            className="text-purple-600 dark:text-purple-400 hover:text-purple-700 font-bold text-xs sm:text-sm inline-flex items-center gap-1.5 group transition-colors"
-          >
-            <span>View All</span>
-            <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform" />
-          </Link>
         </div>
 
         {loading ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[...Array(4)].map((_, i) => (
-              <div key={i} className="animate-pulse bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-3xl h-80" />
+              <div key={i} className="animate-pulse bg-[#F3F4F8] dark:bg-slate-900 rounded-3xl h-84" />
             ))}
           </div>
         ) : (
@@ -188,46 +186,46 @@ const Home = () => {
             {featuredProducts.slice(0, 4).map((p) => (
               <div
                 key={p._id}
-                className="group bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800/80 rounded-3xl overflow-hidden shadow-xs hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col"
+                className="group bg-[#F4F5F9] dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800 rounded-3xl overflow-hidden shadow-xs hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col"
               >
-                {/* Image */}
-                <Link to={`/product/${p._id}`} className="relative block bg-slate-50 dark:bg-slate-950 overflow-hidden h-52 p-4">
+                {/* Product Image Area */}
+                <Link to={`/product/${p._id}`} className="relative block h-56 p-6 flex items-center justify-center overflow-hidden bg-white/70 dark:bg-slate-950/60">
                   <img
                     src={p.image}
                     alt={p.name}
-                    className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
+                    className="max-h-full max-w-full object-contain group-hover:scale-108 transition-transform duration-500 drop-shadow-md"
                   />
                   {p.stock === 0 && (
-                    <span className="absolute top-3 right-3 bg-red-500 text-white text-[9px] px-2 py-0.5 rounded-full font-black uppercase tracking-wider">
+                    <span className="absolute top-3.5 right-3.5 bg-red-500 text-white text-[9px] px-2.5 py-0.5 rounded-full font-black uppercase tracking-wider">
                       Sold Out
                     </span>
                   )}
                 </Link>
 
-                {/* Info */}
-                <div className="p-5 flex flex-col flex-grow">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-purple-600 dark:text-purple-400 mb-1">
+                {/* Info Container */}
+                <div className="p-5 flex flex-col flex-grow bg-[#F4F5F9] dark:bg-slate-900">
+                  <span className="text-[10px] font-black uppercase tracking-wider text-purple-600 dark:text-purple-400 mb-1">
                     {p.category}
                   </span>
                   <Link to={`/product/${p._id}`} className="hover:text-purple-600 transition-colors">
-                    <h4 className="font-extrabold text-slate-900 dark:text-white text-sm truncate mb-1.5">{p.name}</h4>
+                    <h4 className="font-extrabold text-slate-900 dark:text-white text-sm truncate mb-1">{p.name}</h4>
                   </Link>
 
-                  <div className="flex items-center gap-1 mb-3">
+                  <div className="flex items-center gap-1 mb-4">
                     <div className="flex text-amber-400">
                       {[...Array(5)].map((_, idx) => (
-                        <Star key={idx} size={11} className={idx < Math.round(p.rating) ? "fill-amber-400 text-amber-400" : "text-slate-200 dark:text-slate-800"} />
+                        <Star key={idx} size={11} className={idx < Math.round(p.rating) ? "fill-amber-400 text-amber-400" : "text-slate-300 dark:text-slate-700"} />
                       ))}
                     </div>
                     <span className="text-[10px] text-slate-400 font-bold ml-1">({p.numReviews})</span>
                   </div>
 
-                  <div className="flex items-center justify-between mt-auto pt-3 border-t border-slate-50 dark:border-slate-800/80">
+                  <div className="flex items-center justify-between mt-auto pt-3 border-t border-slate-200/60 dark:border-slate-800">
                     <span className="text-lg font-black text-slate-900 dark:text-white tracking-tight">${p.price}</span>
                     <Button
                       disabled={p.stock === 0}
                       onClick={(e) => handleAddToCart(p, e)}
-                      className="bg-purple-600 hover:bg-purple-700 text-white h-8.5 rounded-xl px-3.5 cursor-pointer text-xs gap-1.5 font-bold transition-all shadow-sm shadow-purple-500/20"
+                      className="bg-purple-600 hover:bg-purple-700 text-white h-8.5 rounded-full px-4 cursor-pointer text-xs gap-1.5 font-bold transition-all shadow-md shadow-purple-600/20"
                     >
                       <ShoppingCart size={13} /> Add
                     </Button>

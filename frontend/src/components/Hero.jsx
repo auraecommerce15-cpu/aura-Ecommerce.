@@ -1,119 +1,139 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { ArrowRight, Sparkles, ShieldCheck, Zap } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { useState } from "react";
 
 const Hero = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const slides = [
+    {
+      title1: "Next-Gen",
+      title2: "Electronics",
+      subtitle: "Explore the latest tech with unbeatable prices.",
+      link: "/products",
+      image: "/headphones-hero.jpg"
+    },
+    {
+      title1: "Studio Pro",
+      title2: "Flagships",
+      subtitle: "Immersive noise cancellation and acoustic precision.",
+      link: "/products?category=Headphones",
+      image: "/headphones-hero.jpg"
+    },
+    {
+      title1: "Ultra-Fast",
+      title2: "Laptops",
+      subtitle: "Unleash extreme power for creatives and developers.",
+      link: "/products?category=Laptops",
+      image: "/headphones-hero.jpg"
+    },
+    {
+      title1: "Smart Living",
+      title2: "Wearables",
+      subtitle: "Stay connected with precision health and fitness tracking.",
+      link: "/products?category=Smartwatches",
+      image: "/headphones-hero.jpg"
+    }
+  ];
+
+  const handlePrev = () => {
+    setCurrentSlide((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
+  };
+
+  const handleNext = () => {
+    setCurrentSlide((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
+  };
+
+  const current = slides[currentSlide];
+
   return (
-    <section className="relative bg-slate-950 text-white min-h-[82vh] md:min-h-[88vh] flex items-center overflow-hidden pt-12 pb-20">
+    <section className="relative w-full bg-[#0B0A16] text-white overflow-hidden py-10 md:py-16 lg:py-20 select-none">
+      
+      {/* ── Background Glow & Radial Purple Halo ── */}
+      <div className="absolute top-1/2 right-[18%] -translate-y-1/2 w-[480px] h-[480px] rounded-full bg-[#7C3AED]/25 blur-[120px] pointer-events-none" />
+      <div className="absolute -top-20 -left-20 w-[400px] h-[400px] rounded-full bg-[#6D28D9]/15 blur-[100px] pointer-events-none" />
 
-      {/* ── Ambient Violet & Indigo Glow Lights ── */}
-      <div className="absolute top-[-10%] left-[-5%] w-[50%] h-[50%] bg-purple-600/20 rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute bottom-[-10%] right-[-5%] w-[55%] h-[55%] bg-indigo-600/20 rounded-full blur-[160px] pointer-events-none" />
-      <div className="absolute top-[40%] right-[30%] w-[30%] h-[30%] bg-cyan-500/10 rounded-full blur-[120px] pointer-events-none" />
+      {/* ── Carousel Left Arrow (<) ── */}
+      <button
+        onClick={handlePrev}
+        aria-label="Previous slide"
+        className="absolute left-3 md:left-6 top-1/2 -translate-y-1/2 z-20 w-9 h-9 md:w-11 md:h-11 rounded-full bg-white/10 hover:bg-white/20 text-white backdrop-blur-md flex items-center justify-center transition-all duration-200 cursor-pointer"
+      >
+        <ChevronLeft size={22} />
+      </button>
 
-      {/* ── Subtle Technical Grid Overlay ── */}
-      <div
-        className="absolute inset-0 opacity-[0.03] pointer-events-none"
-        style={{
-          backgroundImage: "linear-gradient(rgba(255,255,255,.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.5) 1px, transparent 1px)",
-          backgroundSize: "64px 64px"
-        }}
-      />
+      {/* ── Carousel Right Arrow (>) ── */}
+      <button
+        onClick={handleNext}
+        aria-label="Next slide"
+        className="absolute right-3 md:right-6 top-1/2 -translate-y-1/2 z-20 w-9 h-9 md:w-11 md:h-11 rounded-full bg-white/10 hover:bg-white/20 text-white backdrop-blur-md flex items-center justify-center transition-all duration-200 cursor-pointer"
+      >
+        <ChevronRight size={22} />
+      </button>
 
-      <div className="max-w-7xl mx-auto px-6 py-10 w-full z-10">
-        <div className="grid md:grid-cols-2 gap-12 lg:gap-16 items-center">
-
-          {/* ─── Left Content ─── */}
-          <div className="space-y-6 text-left">
-
-            {/* Subtle Eyebrow Badge */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-950/60 border border-purple-500/30 text-purple-300 text-xs font-bold tracking-wide backdrop-blur-md">
-              <Sparkles size={13} className="text-purple-400 animate-pulse" />
-              <span>Next-Gen Tech Platform</span>
-            </div>
-
-            {/* Main Headline from the flyer */}
-            <div className="space-y-3">
-              <h1 className="text-5xl sm:text-6xl lg:text-[4.75rem] font-black tracking-tight leading-[1.05]">
-                Next-Gen <br />
-                <span className="bg-gradient-to-r from-purple-400 via-fuchsia-400 to-indigo-300 bg-clip-text text-transparent drop-shadow-sm">
-                  Electronics
+      <div className="max-w-7xl mx-auto px-10 md:px-16 w-full relative z-10">
+        <div className="grid md:grid-cols-2 gap-8 lg:gap-12 items-center">
+          
+          {/* ─── Left Copy Matching Mockup ─── */}
+          <div className="space-y-4 md:space-y-6 text-left">
+            <div>
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.08] text-white">
+                {current.title1}
+                <span className="block text-[#A855F7] drop-shadow-[0_0_25px_rgba(168,85,247,0.4)]">
+                  {current.title2}
                 </span>
               </h1>
-              <p className="text-base sm:text-lg text-slate-300/90 max-w-lg leading-relaxed font-normal pt-1">
-                Explore the latest tech with unbeatable prices.
+              <p className="text-sm sm:text-base text-slate-300 font-normal mt-3.5 max-w-md leading-relaxed">
+                {current.subtitle}
               </p>
             </div>
 
-            {/* CTA Button from the flyer */}
-            <div className="flex flex-wrap items-center gap-4 pt-3">
-              <Link to="/products">
+            {/* CTA Button matching pill in mockup */}
+            <div className="pt-2">
+              <Link to={current.link}>
                 <Button
-                  size="lg"
-                  className="bg-purple-600 hover:bg-purple-500 text-white font-bold px-8 h-12 rounded-xl transition-all duration-300 hover:scale-[1.02] shadow-xl shadow-purple-600/35 flex items-center gap-2.5 text-sm cursor-pointer"
+                  className="bg-[#8B5CF6] hover:bg-[#7C3AED] text-white font-bold px-7 h-11 sm:h-12 rounded-full transition-all duration-200 hover:scale-[1.03] shadow-lg shadow-purple-600/30 flex items-center gap-2 text-sm cursor-pointer"
                 >
-                  Shop Now <ArrowRight size={17} />
-                </Button>
-              </Link>
-              <Link to="/deals">
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="border-slate-800 hover:border-purple-500/40 bg-slate-900/60 hover:bg-slate-900 text-slate-200 px-6 h-12 rounded-xl transition-all duration-300 text-sm font-semibold cursor-pointer backdrop-blur-sm"
-                >
-                  Explore Deals
+                  Shop Now <ArrowRight size={16} />
                 </Button>
               </Link>
             </div>
-
-            {/* Trust Highlights */}
-            <div className="flex flex-wrap items-center gap-6 pt-4 border-t border-slate-900/80 text-xs text-slate-400 font-medium">
-              <div className="flex items-center gap-2">
-                <ShieldCheck size={15} className="text-purple-400" />
-                <span>100% Genuine Tech</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Zap size={15} className="text-cyan-400" />
-                <span>Fast Express Delivery</span>
-              </div>
-            </div>
-
           </div>
 
-          {/* ─── Right: Glowing Neon Headphones Visual from the flyer ─── */}
-          <div className="flex justify-center items-center relative">
+          {/* ─── Right Visual Matching Mockup ─── */}
+          <div className="relative flex justify-center items-center">
             
-            {/* Concentric Neon Halo */}
-            <div className="absolute w-[80%] h-[80%] rounded-full bg-gradient-to-tr from-purple-600/30 via-indigo-600/20 to-cyan-500/20 blur-[60px] pointer-events-none" />
-
-            {/* Glow framing */}
-            <div className="relative group w-full max-w-md lg:max-w-lg">
-              <div className="relative overflow-hidden rounded-3xl p-1 bg-gradient-to-b from-purple-500/30 via-slate-800/60 to-transparent border border-purple-500/20 shadow-2xl backdrop-blur-sm">
-                <img
-                  src="/headphones-hero.jpg"
-                  alt="Next-Gen Electronics - Premium Glowing Headphones"
-                  width={640}
-                  height={520}
-                  className="w-full h-auto object-cover rounded-[22px] transition-transform duration-700 group-hover:scale-[1.03]"
-                  onError={(e) => {
-                    e.target.src = "/luxury-hero.jpg";
-                  }}
-                />
-
-                {/* Floating badge */}
-                <div className="absolute bottom-5 left-5 bg-slate-950/85 border border-purple-500/30 text-white rounded-xl px-3.5 py-2.5 shadow-xl backdrop-blur-md flex items-center gap-2.5">
-                  <span className="w-2.5 h-2.5 rounded-full bg-purple-500 animate-ping" />
-                  <div>
-                    <span className="text-[10px] uppercase font-bold text-slate-400 tracking-wider block">Featured Flagship</span>
-                    <span className="text-xs font-black text-purple-300">Ultra-Low Latency ANC</span>
-                  </div>
-                </div>
-              </div>
+            {/* Luminous Purple Circular Accent Disk */}
+            <div className="absolute w-[280px] h-[280px] sm:w-[380px] sm:h-[380px] rounded-full bg-gradient-to-tr from-[#6D28D9]/40 via-[#8B5CF6]/30 to-[#C084FC]/20 blur-xl pointer-events-none" />
+            
+            <div className="relative w-full max-w-[340px] sm:max-w-[440px] lg:max-w-[480px]">
+              <img
+                src={current.image}
+                alt={`${current.title1} ${current.title2}`}
+                className="w-full h-auto object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.6)] transition-all duration-500"
+              />
             </div>
-
           </div>
 
         </div>
+
+        {/* ── Carousel Dots (Active wide purple pill, 3 small dots) ── */}
+        <div className="flex justify-center items-center gap-2 pt-8 md:pt-12">
+          {slides.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setCurrentSlide(i)}
+              aria-label={`Go to slide ${i + 1}`}
+              className={`transition-all duration-300 cursor-pointer rounded-full ${
+                currentSlide === i
+                  ? "w-7 h-2 bg-[#8B5CF6]"
+                  : "w-2 h-2 bg-white/40 hover:bg-white/60"
+              }`}
+            />
+          ))}
+        </div>
+
       </div>
     </section>
   );

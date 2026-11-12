@@ -1,19 +1,21 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+<svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="favAuraGrad" x1="0%" y1="100%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#4F46E5" />
+    <linearGradient id="favA1" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#6D28D9" />
       <stop offset="50%" stop-color="#7C3AED" />
-      <stop offset="100%" stop-color="#C084FC" />
+      <stop offset="100%" stop-color="#A855F7" />
     </linearGradient>
-    <linearGradient id="favGlow" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#9333EA" stop-opacity="0.8" />
-      <stop offset="100%" stop-color="#4338CA" stop-opacity="0.2" />
+    <linearGradient id="favA2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8B5CF6" />
+      <stop offset="100%" stop-color="#6366F1" />
+    </linearGradient>
+    <linearGradient id="favFold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4C1D95" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="#6D28D9" stop-opacity="0.4" />
     </linearGradient>
   </defs>
-  <rect width="100" height="100" rx="24" fill="#0B0F19" />
-  <g transform="translate(4, 4) scale(0.92)">
-    <path d="M50 14 L88 86 L66 86 L50 52 L34 86 L12 86 Z" fill="url(#favAuraGrad)" />
-    <path d="M30 68 L70 68 L62 55 L38 55 Z" fill="#DDD6FE" opacity="0.9" />
-    <path d="M50 14 L66 86 L50 52 Z" fill="#312E81" opacity="0.4" />
-  </g>
+  <path d="M50 12 L85 84 L64 84 L50 55 L36 84 L15 84 Z" fill="url(#favA1)" />
+  <path d="M36 84 L50 55 L64 84 Z" fill="url(#favFold)" />
+  <path d="M29 66 H71 L64 52 H36 Z" fill="url(#favA2)" />
+  <path d="M50 12 L64 52 H36 Z" fill="#DDD6FE" opacity="0.95" />
 </svg>

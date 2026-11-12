@@ -1,41 +1,21 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 120" fill="none">
+<svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="auraPurpleGrad" x1="0%" y1="100%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#6366F1" />
-      <stop offset="40%" stop-color="#8B5CF6" />
-      <stop offset="80%" stop-color="#A855F7" />
-      <stop offset="100%" stop-color="#C084FC" />
+    <linearGradient id="favA1" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#6D28D9" />
+      <stop offset="50%" stop-color="#7C3AED" />
+      <stop offset="100%" stop-color="#A855F7" />
     </linearGradient>
-    <linearGradient id="auraGlow" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#A855F7" stop-opacity="0.8" />
-      <stop offset="100%" stop-color="#4F46E5" stop-opacity="0.2" />
+    <linearGradient id="favA2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8B5CF6" />
+      <stop offset="100%" stop-color="#6366F1" />
     </linearGradient>
-    <filter id="subtleGlow" x="-20%" y="-20%" width="140%" height="140%">
-      <feGaussianBlur stdDeviation="3" result="blur" />
-      <feComposite in="SourceGraphic" in2="blur" operator="over" />
-    </filter>
+    <linearGradient id="favFold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4C1D95" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="#6D28D9" stop-opacity="0.4" />
+    </linearGradient>
   </defs>
-
-  <!-- Triangular Stylized 'A' Icon -->
-  <g transform="translate(10, 10)">
-    <!-- Ambient back glow -->
-    <path d="M50 8 L92 88 L68 88 L50 48 L32 88 L8 88 Z" fill="url(#auraGlow)" filter="url(#subtleGlow)" />
-    <!-- Left to Top Ribbon -->
-    <path d="M50 8 L92 88 L68 88 L50 48 L32 88 L8 88 Z" fill="url(#auraPurpleGrad)" />
-    <!-- Crossbar / Dynamic Fold Accent -->
-    <path d="M28 66 L72 66 L64 52 L36 52 Z" fill="#DDD6FE" opacity="0.9" />
-    <!-- Inner Shadow Cut for 3D Ribbon Look -->
-    <path d="M50 8 L68 88 L50 48 Z" fill="#4338CA" opacity="0.35" />
-    <path d="M50 8 L32 88 L50 48 Z" fill="#FFFFFF" opacity="0.15" />
-  </g>
-
-  <!-- 'AURA' Wordmark -->
-  <text x="125" y="68" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="52" font-weight="900" letter-spacing="0.16em" fill="#0F172A">
-    AURA
-  </text>
-
-  <!-- 'Shop Smarter. Live Better.' Tagline -->
-  <text x="128" y="94" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="14.5" font-weight="600" letter-spacing="0.02em" fill="#64748B">
-    Shop Smarter. Live Better.
-  </text>
+  <path d="M50 12 L85 84 L64 84 L50 55 L36 84 L15 84 Z" fill="url(#favA1)" />
+  <path d="M36 84 L50 55 L64 84 Z" fill="url(#favFold)" />
+  <path d="M29 66 H71 L64 52 H36 Z" fill="url(#favA2)" />
+  <path d="M50 12 L64 52 H36 Z" fill="#DDD6FE" opacity="0.95" />
 </svg>

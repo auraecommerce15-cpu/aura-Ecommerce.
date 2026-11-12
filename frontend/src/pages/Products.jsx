@@ -140,13 +140,13 @@ const Products = () => {
                                 placeholder="Search products..."
                                 value={keyword}
                                 onChange={(e) => setKeyword(e.target.value)}
-                                className="pr-10 border-slate-200 focus:border-pink-500 rounded-full"
+                                className="pr-10 border-slate-200 focus:border-purple-500 rounded-full"
                             />
-                            <button type="submit" className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-pink-600">
+                            <button type="submit" className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-purple-600">
                                 <Search size={18} />
                             </button>
                         </div>
-                        <Button type="button" onClick={() => setShowMobileFilters(!showMobileFilters)} className="md:hidden bg-pink-100 text-pink-700 hover:bg-pink-200">
+                        <Button type="button" onClick={() => setShowMobileFilters(!showMobileFilters)} className="md:hidden bg-purple-100 text-purple-700 hover:bg-purple-200">
                             <SlidersHorizontal size={18} />
                         </Button>
                     </form>
@@ -166,7 +166,7 @@ const Products = () => {
                                         onClick={() => handleCategorySelect(cat)}
                                         className={`text-left px-3 py-2 rounded-lg text-sm transition-all capitalize ${
                                             category.toLowerCase() === cat.toLowerCase()
-                                                ? "bg-pink-500 text-white font-medium shadow-xs"
+                                                ? "bg-purple-600 text-white font-medium shadow-xs"
                                                 : "text-slate-600 hover:bg-slate-50"
                                         }`}
                                     >
@@ -197,7 +197,7 @@ const Products = () => {
                                     className="h-9 text-xs"
                                 />
                             </div>
-                            <Button onClick={fetchProducts} className="w-full mt-3 bg-pink-600 text-white hover:bg-pink-700 text-xs py-2 h-8">
+                            <Button onClick={fetchProducts} className="w-full mt-3 bg-purple-600 text-white hover:bg-purple-700 text-xs py-2 h-8">
                                 Apply
                             </Button>
                         </div>
@@ -209,7 +209,7 @@ const Products = () => {
                             <select
                                 value={sort}
                                 onChange={(e) => setSort(e.target.value)}
-                                className="w-full border border-slate-200 rounded-lg p-2 text-sm text-slate-700 outline-none focus:border-pink-500"
+                                className="w-full border border-slate-200 rounded-lg p-2 text-sm text-slate-700 outline-none focus:border-purple-500"
                             >
                                 <option value="newest">Newest</option>
                                 <option value="price-asc">Price: Low to High</option>
@@ -240,7 +240,7 @@ const Products = () => {
                             <div className="bg-white rounded-2xl border border-slate-100 p-12 text-center max-w-lg mx-auto">
                                 <h3 className="text-xl font-bold text-slate-800 mb-2">No Products Found</h3>
                                 <p className="text-slate-500 mb-6">We couldn't find any products matching your search criteria.</p>
-                                <Button onClick={handleResetFilters} className="bg-pink-600 hover:bg-pink-700 text-white">
+                                <Button onClick={handleResetFilters} className="bg-purple-600 hover:bg-purple-700 text-white">
                                     Clear Filters
                                 </Button>
                             </div>
@@ -265,10 +265,10 @@ const Products = () => {
                                         </Link>
 
                                         <div className="p-5 flex flex-col flex-grow">
-                                            <span className="text-xs font-semibold uppercase tracking-wider text-pink-600 mb-1.5">
+                                            <span className="text-xs font-semibold uppercase tracking-wider text-purple-600 mb-1.5">
                                                 {product.category}
                                             </span>
-                                            <Link to={`/product/${product._id}`} className="hover:text-pink-600 transition-colors">
+                                            <Link to={`/product/${product._id}`} className="hover:text-purple-600 transition-colors">
                                                 <h3 className="font-bold text-slate-900 text-base mb-1 line-clamp-1">
                                                     {product.name}
                                                 </h3>
@@ -299,7 +299,7 @@ const Products = () => {
                                                 <Button
                                                     disabled={product.stock === 0}
                                                     onClick={() => handleAddToCart(product)}
-                                                    className="bg-pink-600 hover:bg-pink-700 text-white h-9 rounded-xl px-4 cursor-pointer gap-2"
+                                                    className="bg-purple-600 hover:bg-purple-700 text-white h-9 rounded-xl px-4 cursor-pointer gap-2"
                                                 >
                                                     <ShoppingCart size={15} /> Add
                                                 </Button>

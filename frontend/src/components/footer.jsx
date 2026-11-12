@@ -33,17 +33,17 @@ const Footer = () => {
 
   const trustFeatures = [
     {
-      icon: <Truck size={22} className="text-pink-500" />,
+      icon: <Truck size={22} className="text-purple-400" />,
       title: "Free Express Shipping",
-      desc: "Complimentary priority dispatch on orders over $500"
+      desc: "Complimentary priority dispatch on orders over $50"
     },
     {
-      icon: <ShieldCheck size={22} className="text-purple-400" />,
+      icon: <ShieldCheck size={22} className="text-indigo-400" />,
       title: "2-Year Comprehensive Warranty",
       desc: "100% authentic hardware with full manufacturer guarantee"
     },
     {
-      icon: <RefreshCw size={22} className="text-pink-400" />,
+      icon: <RefreshCw size={22} className="text-purple-400" />,
       title: "30-Day Hassle-Free Returns",
       desc: "Full money-back satisfaction guarantee with prepaid returns"
     },
@@ -57,45 +57,27 @@ const Footer = () => {
   const shopLinks = [
     { label: "High-End Laptops", to: "/products?category=Laptops" },
     { label: "Flagship Smartphones", to: "/products?category=Smartphones" },
-    { label: "Studio Headphones & ANC", to: "/products?category=Headphones" },
-    { label: "Luxury Smartwatches", to: "/products?category=Smartwatches" },
-    { label: "Electronics Accessories", to: "/products?category=Accessories" },
-    { label: "Exclusive Daily Deals", to: "/deals", isHot: true }
+    { label: "Studio Headphones & ANC", to: "/products?category=Headphones", isHot: true },
+    { label: "Smartwatches & Wearables", to: "/products?category=Smartwatches" },
+    { label: "All Curated Gear", to: "/products" },
+    { label: "Special Offers & Deals", to: "/deals" }
   ];
 
   const serviceLinks = [
     { label: "Track Your Order", to: "/profile" },
-    { label: "Customer Reviews & Ratings", to: "/reviews" },
-    { label: "Shopping Bag / Cart", to: "/cart" },
-    { label: "Fast Express Checkout", to: "/checkout" },
-    { label: "Delivery & Shipping Rates", to: "/shipping" },
-    { label: "Returns & Refund Policy", to: "/returns" }
-  ];
-
-  const companyLinks = [
-    { label: "Our Story & Vision", to: "/about" },
-    { label: "Authenticity & Heritage", to: "/about" },
-    { label: "Contact Tech Specialists", to: "/contact" },
-    { label: "Help & Knowledge Base", to: "/faq" },
+    { label: "Order History", to: "/profile" },
+    { label: "30-Day Return Center", to: "/returns" },
+    { label: "Shipping Information", to: "/shipping" },
     { label: "Terms of Service", to: "/terms" },
     { label: "Privacy Policy", to: "/privacy" }
   ];
 
   const socialLinks = [
     {
-      label: "Instagram",
-      to: "https://instagram.com",
-      color: "hover:bg-gradient-to-tr hover:from-yellow-500 hover:via-pink-500 hover:to-purple-600 hover:text-white",
-      icon: (
-        <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
-        </svg>
-      )
-    },
-    {
-      label: "X (Twitter)",
+      name: "Twitter / X",
       to: "https://twitter.com",
-      color: "hover:bg-slate-900 hover:text-white hover:border-slate-700",
+      color: "hover:bg-slate-800 hover:text-white",
+      label: "Twitter",
       icon: (
         <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
           <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
@@ -103,29 +85,32 @@ const Footer = () => {
       )
     },
     {
-      label: "Facebook",
-      to: "https://facebook.com",
-      color: "hover:bg-blue-600 hover:text-white",
+      name: "Instagram",
+      to: "https://instagram.com",
+      color: "hover:bg-gradient-to-tr hover:from-purple-600 hover:via-indigo-600 hover:to-purple-500 hover:text-white",
+      label: "Instagram",
       icon: (
         <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-          <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
         </svg>
       )
     },
     {
-      label: "LinkedIn",
-      to: "https://linkedin.com",
-      color: "hover:bg-blue-700 hover:text-white",
+      name: "GitHub",
+      to: "https://github.com/Rizwanshahani/aura-Ecommerce..git",
+      color: "hover:bg-slate-800 hover:text-white",
+      label: "GitHub",
       icon: (
         <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-          <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0z" />
+          <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
         </svg>
       )
     },
     {
-      label: "YouTube",
+      name: "YouTube",
       to: "https://youtube.com",
       color: "hover:bg-red-600 hover:text-white",
+      label: "YouTube",
       icon: (
         <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
           <path d="M23.498 6.163a3.003 3.003 0 00-2.11-2.11C19.518 3.545 12 3.545 12 3.545s-7.518 0-9.388.507a3.003 3.003 0 00-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 002.11 2.11c1.87.507 9.388.507 9.388.507s7.518 0 9.388-.507a3.003 3.003 0 002.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
@@ -138,8 +123,8 @@ const Footer = () => {
     <footer className="w-full bg-slate-950 text-slate-400 border-t border-slate-900/90 relative overflow-hidden">
       
       {/* ── Ambient Background Glows ── */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-pink-600/5 rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-700/5 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-600/10 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-indigo-700/10 rounded-full blur-[140px] pointer-events-none" />
 
       {/* ── 1. Top Guarantees & Trust Banner ── */}
       <div className="border-b border-slate-900/80 bg-slate-900/30 backdrop-blur-sm">
@@ -148,7 +133,7 @@ const Footer = () => {
             {trustFeatures.map((f, i) => (
               <div
                 key={i}
-                className="flex items-start gap-4 p-4 rounded-2xl bg-slate-900/40 border border-slate-800/60 hover:border-pink-500/30 transition-all duration-300 group"
+                className="flex items-start gap-4 p-4 rounded-2xl bg-slate-900/40 border border-slate-800/60 hover:border-purple-500/40 transition-all duration-300 group"
               >
                 <div className="p-3 rounded-xl bg-slate-950 border border-slate-800 shadow-md group-hover:scale-110 transition-transform duration-300 shrink-0">
                   {f.icon}
@@ -166,11 +151,11 @@ const Footer = () => {
       {/* ── 2. VIP Newsletter & Club Banner ── */}
       <div className="border-b border-slate-900/80 py-12 relative">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="rounded-3xl bg-gradient-to-r from-slate-900 via-slate-900/80 to-purple-950/40 border border-pink-500/20 p-8 md:p-10 shadow-2xl relative overflow-hidden flex flex-col lg:flex-row items-center justify-between gap-8">
+          <div className="rounded-3xl bg-gradient-to-r from-slate-900 via-slate-900/90 to-purple-950/50 border border-purple-500/30 p-8 md:p-10 shadow-2xl relative overflow-hidden flex flex-col lg:flex-row items-center justify-between gap-8">
             
             {/* Left copy */}
             <div className="space-y-2 text-center lg:text-left max-w-xl">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-pink-500/10 border border-pink-500/30 text-pink-400 text-[10px] font-black uppercase tracking-widest">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/15 border border-purple-500/30 text-purple-300 text-[10px] font-black uppercase tracking-widest">
                 <Sparkles size={11} className="animate-pulse" />
                 <span>Join Aura VIP Club</span>
               </div>
@@ -191,12 +176,12 @@ const Footer = () => {
                   placeholder="Enter your VIP email address..."
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full bg-slate-950/80 border border-slate-700/80 rounded-xl pl-11 pr-4 py-3 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-pink-500 transition-colors shadow-inner"
+                  className="w-full bg-slate-950/80 border border-slate-700/80 rounded-xl pl-11 pr-4 py-3 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-purple-500 transition-colors shadow-inner"
                 />
               </div>
               <button
                 type="submit"
-                className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white font-bold text-xs px-6 py-3 rounded-xl shadow-lg shadow-pink-600/20 hover:scale-[1.02] transition-all flex items-center justify-center gap-2 cursor-pointer shrink-0"
+                className="bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs px-6 py-3 rounded-xl shadow-lg shadow-purple-600/30 hover:scale-[1.02] transition-all flex items-center justify-center gap-2 cursor-pointer shrink-0"
               >
                 <span>Subscribe</span>
                 <Send size={13} />
@@ -214,15 +199,15 @@ const Footer = () => {
           {/* Brand Info & Mission (Cols 1-2) */}
           <div className="lg:col-span-2 space-y-5 text-left pr-4">
             <Link to="/" className="inline-flex items-center gap-3 group">
-              <div className="w-11 h-11 rounded-2xl bg-slate-950 p-1 border border-pink-500/40 group-hover:border-pink-400 shadow-xl shadow-pink-500/15 overflow-hidden group-hover:scale-105 transition-all duration-300 flex items-center justify-center">
-                <img src="/aura.png" alt="AURA" className="w-full h-full object-cover rounded-xl" />
+              <div className="w-10 h-10 rounded-xl bg-slate-950 p-1 border border-purple-500/40 group-hover:border-purple-400 shadow-xl shadow-purple-500/20 overflow-hidden group-hover:scale-105 transition-all duration-300 flex items-center justify-center">
+                <img src="/favicon.svg" alt="AURA" className="w-full h-full object-contain" />
               </div>
               <div className="flex flex-col">
-                <span className="text-2xl font-black tracking-[0.22em] bg-gradient-to-r from-white via-slate-100 to-pink-400 bg-clip-text text-transparent group-hover:to-purple-400 transition-all">
+                <span className="text-2xl font-black tracking-[0.22em] bg-gradient-to-r from-white via-slate-100 to-purple-400 bg-clip-text text-transparent group-hover:to-indigo-400 transition-all">
                   AURA
                 </span>
-                <span className="text-[8px] font-black uppercase tracking-[0.32em] text-pink-500/80 -mt-1">
-                  Luxury Tech & Audio
+                <span className="text-[8px] font-bold tracking-tight text-slate-400 mt-0.5">
+                  Shop Smarter. Live Better.
                 </span>
               </div>
             </Link>
@@ -245,7 +230,7 @@ const Footer = () => {
 
           {/* Shop Column */}
           <div className="space-y-4 text-left">
-            <h4 className="text-xs font-black uppercase tracking-[0.18em] text-white border-l-2 border-pink-500 pl-3">
+            <h4 className="text-xs font-black uppercase tracking-[0.18em] text-white border-l-2 border-purple-500 pl-3">
               Catalog
             </h4>
             <ul className="space-y-2.5 pl-3">
@@ -257,8 +242,8 @@ const Footer = () => {
                   >
                     <span className="group-hover:translate-x-1 transition-transform duration-200">{item.label}</span>
                     {item.isHot && (
-                      <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[9px] font-black uppercase bg-pink-500/20 text-pink-400 border border-pink-500/30">
-                        <Flame size={10} className="fill-pink-400" /> Hot
+                      <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[9px] font-black uppercase bg-purple-500/20 text-purple-300 border border-purple-500/30">
+                        <Flame size={10} className="fill-purple-400" /> Hot
                       </span>
                     )}
                   </Link>
@@ -269,7 +254,7 @@ const Footer = () => {
 
           {/* Services & Orders Column */}
           <div className="space-y-4 text-left">
-            <h4 className="text-xs font-black uppercase tracking-[0.18em] text-white border-l-2 border-purple-500 pl-3">
+            <h4 className="text-xs font-black uppercase tracking-[0.18em] text-white border-l-2 border-indigo-500 pl-3">
               Client Care
             </h4>
             <ul className="space-y-2.5 pl-3">
@@ -288,28 +273,28 @@ const Footer = () => {
 
           {/* Concierge & Contact */}
           <div className="space-y-4 text-left">
-            <h4 className="text-xs font-black uppercase tracking-[0.18em] text-white border-l-2 border-pink-500 pl-3">
+            <h4 className="text-xs font-black uppercase tracking-[0.18em] text-white border-l-2 border-purple-500 pl-3">
               Concierge
             </h4>
             <ul className="space-y-3 pl-3 text-xs text-slate-400">
               <li className="flex items-start gap-2.5">
-                <MapPin size={14} className="text-pink-400 shrink-0 mt-0.5" />
+                <MapPin size={14} className="text-purple-400 shrink-0 mt-0.5" />
                 <span className="text-[11px] leading-snug">100 Innovation Blvd, Suite 400, New York, NY 10001</span>
               </li>
               <li className="flex items-center gap-2.5">
-                <Phone size={14} className="text-pink-400 shrink-0" />
+                <Phone size={14} className="text-purple-400 shrink-0" />
                 <a href="tel:+18005550199" className="text-[11px] hover:text-white transition-colors font-medium">
                   +1 (800) 555-0199
                 </a>
               </li>
               <li className="flex items-center gap-2.5">
-                <Mail size={14} className="text-pink-400 shrink-0" />
+                <Mail size={14} className="text-purple-400 shrink-0" />
                 <a href="mailto:support@aura.com" className="text-[11px] hover:text-white transition-colors font-medium">
                   support@aura.com
                 </a>
               </li>
               <li className="flex items-center gap-2.5">
-                <Clock size={14} className="text-pink-400 shrink-0" />
+                <Clock size={14} className="text-purple-400 shrink-0" />
                 <span className="text-[11px]">24/7 Dedicated Concierge</span>
               </li>
             </ul>

@@ -5,6 +5,7 @@ import connectDB from './database/db.js';
 import userRoute from './routes/userRoute.js';
 import productRoutes from './routes/productRoutes.js';
 import orderRoutes from './routes/orderRoutes.js';
+import categoryRoutes from './routes/categoryRoutes.js';
 import cors from 'cors';
 
 const app = express();
@@ -32,6 +33,7 @@ app.use(async (req, res, next) => {
 app.use('/api/v1/user', userRoute);
 app.use('/api/v1/product', productRoutes);
 app.use('/api/v1/order', orderRoutes);
+app.use('/api/v1/category', categoryRoutes);
 
 // Health check (minimal, non-leaking)
 app.get('/api/v1/healthcheck', (req, res) => {

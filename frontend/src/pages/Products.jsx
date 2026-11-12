@@ -3,7 +3,7 @@ import api from "@/lib/api";
 import { useDispatch, useSelector } from "react-redux";
 import { setProducts, setLoading, setError } from "@/redux/productSlice";
 import { addToCart } from "@/redux/cartSlice";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
@@ -12,15 +12,46 @@ import { Search, SlidersHorizontal, ShoppingCart, Star } from "lucide-react";
 const Products = () => {
     const dispatch = useDispatch();
     const { products, loading } = useSelector((state) => state.products);
+    const [searchParams, setSearchParams] = useSearchParams();
     
     const [keyword, setKeyword] = useState("");
-    const [category, setCategory] = useState("All");
+    const [category, setCategory] = useState(searchParams.get("category") || "All");
     const [minPrice, setMinPrice] = useState("");
     const [maxPrice, setMaxPrice] = useState("");
     const [sort, setSort] = useState("newest");
     const [showMobileFilters, setShowMobileFilters] = useState(false);
 
-    const categories = ["All", "Laptops", "Smartphones", "Headphones", "Smartwatches", "Accessories"];
+    const [categoriesList, setCategoriesList] = useState([
+        "All", "Laptops", "Smartphones", "Headphones", "Smartwatches", "Accessories"
+    ]);
+
+    // Synchronize category state if URL query param changes
+    useEffect(() => {
+        const queryCat = searchParams.get("category");
+        if (queryCat && queryCat !== category) {
+            setCategory(queryCat);
+        } else if (!queryCat && category !== "All") {
+            // Keep category or default
+        }
+    }, [searchParams]);
+
+    // Fetch dynamic categories from backend
+    useEffect(() => {
+        const loadCategories = async () => {
+            try {
+                const res = await api.get("/category");
+                if (res.data && res.data.success && Array.isArray(res.data.categories)) {
+                    const dynamicNames = res.data.categories.map((c) => (typeof c === "string" ? c : c.name));
+                    const combined = ["All", ...dynamicNames];
+                    const uniqueNames = Array.from(new Set(combined.filter(Boolean)));
+                    setCategoriesList(uniqueNames);
+                }
+            } catch (err) {
+                console.error("Failed to fetch dynamic categories", err);
+            }
+        };
+        loadCategories();
+    }, []);
 
     const fetchProducts = async () => {
         try {
@@ -54,12 +85,24 @@ const Products = () => {
         fetchProducts();
     };
 
+    const handleCategorySelect = (cat) => {
+        setCategory(cat);
+        const nextParams = new URLSearchParams(searchParams);
+        if (cat === "All") {
+            nextParams.delete("category");
+        } else {
+            nextParams.set("category", cat);
+        }
+        setSearchParams(nextParams);
+    };
+
     const handleResetFilters = () => {
         setKeyword("");
         setCategory("All");
         setMinPrice("");
         setMaxPrice("");
         setSort("newest");
+        setSearchParams({});
         // Reset URL params manually by refetching
         setTimeout(() => {
             fetchProducts();
@@ -115,14 +158,15 @@ const Products = () => {
                     <div className={`lg:block ${showMobileFilters ? "block" : "hidden"} bg-white p-6 rounded-2xl shadow-xs border border-slate-100 h-fit space-y-6`}>
                         <div>
                             <h3 className="font-semibold text-slate-900 mb-3">Categories</h3>
-                            <div className="flex flex-col gap-1.5">
-                                {categories.map((cat) => (
+                            <div className="flex flex-col gap-1.5 max-h-64 overflow-y-auto pr-1">
+                                {categoriesList.map((cat) => (
                                     <button
                                         key={cat}
-                                        onClick={() => setCategory(cat)}
-                                        className={`text-left px-3 py-2 rounded-lg text-sm transition-all ${
-                                            category === cat
-                                                ? "bg-pink-500 text-white font-medium"
+                                        type="button"
+                                        onClick={() => handleCategorySelect(cat)}
+                                        className={`text-left px-3 py-2 rounded-lg text-sm transition-all capitalize ${
+                                            category.toLowerCase() === cat.toLowerCase()
+                                                ? "bg-pink-500 text-white font-medium shadow-xs"
                                                 : "text-slate-600 hover:bg-slate-50"
                                         }`}
                                     >

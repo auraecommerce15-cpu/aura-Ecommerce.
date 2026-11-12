@@ -41,8 +41,10 @@ const Profile = () => {
             if (res.data.success) {
                 setOrders(res.data.orders);
             }
-        } catch {
-            toast.error("Failed to load orders");
+        } catch (error) {
+            console.error("fetchMyOrders error:", error);
+            const msg = error.response?.data?.message || "Failed to load orders";
+            toast.error(msg);
         } finally {
             setOrdersLoading(false);
         }
@@ -196,14 +198,14 @@ const Profile = () => {
                                             
                                             {/* Order items preview string */}
                                             <p className="text-sm font-bold text-slate-800 line-clamp-1 max-w-md">
-                                                {order.orderItems.map((item) => `${item.qty}x ${item.name}`).join(", ")}
+                                                {order.orderItems?.map((item) => `${item.qty}x ${item.name}`).join(", ") || "No items"}
                                             </p>
                                         </div>
 
                                         <div className="flex items-center justify-between w-full md:w-auto md:justify-end gap-6 border-t md:border-t-0 pt-3 md:pt-0 mt-3 md:mt-0">
                                             <div className="text-left md:text-right">
                                                 <span className="text-xs text-slate-400 block font-medium">Total</span>
-                                                <span className="text-base font-extrabold text-pink-600">${order.totalPrice.toFixed(2)}</span>
+                                                <span className="text-base font-extrabold text-pink-600">${Number(order.totalPrice || 0).toFixed(2)}</span>
                                             </div>
 
                                             <div className="flex items-center gap-3">

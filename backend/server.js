@@ -1,7 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv';
 dotenv.config({ override: false });
-import connectDB from './database/db.js';
 import userRoute from './routes/userRoute.js';
 import productRoutes from './routes/productRoutes.js';
 import orderRoutes from './routes/orderRoutes.js';
@@ -11,11 +10,13 @@ import cors from 'cors';
 const app = express();
 
 app.use(express.json({ limit: '10mb' }));
+
 const allowedOrigins = [
     'http://localhost:5173',
     'http://localhost:3000',
     'http://localhost:8000',
     'https://aura-ecommerce-5c8m.vercel.app',
+    'https://aura-ecommerce15.vercel.app',
     ...(process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',').map(o => o.trim()) : [])
 ];
 
@@ -33,30 +34,17 @@ app.use(cors({
     credentials: true
 }));
 
-// Connect to DB before handling requests
-app.use(async (req, res, next) => {
-    try {
-        await connectDB();
-        next();
-    } catch (err) {
-        return res.status(500).json({
-            success: false,
-            message: 'Service unavailable'
-        });
-    }
-});
-
 // Routes
 app.use('/api/v1/user', userRoute);
 app.use('/api/v1/product', productRoutes);
 app.use('/api/v1/order', orderRoutes);
 app.use('/api/v1/category', categoryRoutes);
 
-// Health check (minimal, non-leaking)
+// Health check
 app.get('/api/v1/healthcheck', (req, res) => {
     res.status(200).json({
         success: true,
-        message: 'API is running'
+        message: 'API is running (Supabase)'
     });
 });
 

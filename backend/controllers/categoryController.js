@@ -1,172 +1,124 @@
-import Category from "../models/categoryModel.js";
-import Product from "../models/productModel.js";
-import { escapeRegex } from "../utils/escapeRegex.js";
+import supabase from "../database/supabase.js";
 
 const DEFAULT_CATEGORIES = [
-    { name: "Laptops", description: "High-performance portable computers and ultrabooks" },
-    { name: "Smartphones", description: "Next-gen flagship mobile devices and accessories" },
-    { name: "Headphones", description: "Studio monitors, wireless audio, and active noise-cancelling gear" },
+    { name: "Laptops",      description: "High-performance portable computers and ultrabooks" },
+    { name: "Smartphones",  description: "Next-gen flagship mobile devices and accessories" },
+    { name: "Headphones",   description: "Studio monitors, wireless audio, and active noise-cancelling gear" },
     { name: "Smartwatches", description: "Luxury connected timepieces and health wearables" },
-    { name: "Accessories", description: "Premium tech essentials, chargers, cables, and peripherals" }
+    { name: "Accessories",  description: "Premium tech essentials, chargers, cables, and peripherals" }
 ];
 
-// @desc    Get all categories with product counts
-// @route   GET /api/v1/category
-// @access  Public
+// ─────────────────────────────────────────────
+// GET ALL CATEGORIES
+// ─────────────────────────────────────────────
 export const getCategories = async (req, res) => {
     try {
-        // Fetch explicit category documents
-        const savedCategories = await Category.find().sort({ name: 1 }).lean();
-
-        // Fetch distinct categories currently used by products
-        const productCategories = await Product.distinct("category");
-
-        // Compute product count per category
-        const productCounts = await Product.aggregate([
-            { $group: { _id: "$category", count: { $sum: 1 } } }
-        ]);
-        const countMap = {};
-        productCounts.forEach((item) => {
-            if (item._id) {
-                countMap[item._id] = item.count;
-            }
-        });
-
-        // Seed defaults into Category collection if completely empty
-        if (savedCategories.length === 0) {
-            try {
-                await Category.insertMany(DEFAULT_CATEGORIES, { ordered: false });
-            } catch {
-                // Ignore duplicate errors during concurrent seed
-            }
+        // Seed defaults if empty
+        const { data: existing } = await supabase.from('categories').select('id').limit(1);
+        if (!existing || existing.length === 0) {
+            await supabase.from('categories').upsert(DEFAULT_CATEGORIES, { onConflict: 'name' });
         }
 
-        // Re-fetch saved categories after ensuring defaults
-        const allSaved = await Category.find().sort({ name: 1 }).lean();
+        const { data: categories, error } = await supabase
+            .from('categories')
+            .select('*')
+            .order('name', { ascending: true });
 
-        // Build a unified dictionary indexed by lowercase name
-        const categoryMap = new Map();
+        if (error) throw new Error(error.message);
 
-        // Add saved categories
-        allSaved.forEach((cat) => {
-            categoryMap.set(cat.name.toLowerCase(), {
-                _id: cat._id,
-                name: cat.name,
-                description: cat.description || "",
-                productCount: countMap[cat.name] || 0,
-                createdAt: cat.createdAt
-            });
-        });
-
-        // Also ensure any product categories not yet in Category model are included
-        productCategories.forEach((catName) => {
-            if (catName && !categoryMap.has(catName.toLowerCase())) {
-                categoryMap.set(catName.toLowerCase(), {
-                    _id: null,
-                    name: catName,
-                    description: "",
-                    productCount: countMap[catName] || 0
-                });
+        // Product count per category
+        const { data: products } = await supabase.from('products').select('category');
+        const countMap = {};
+        (products || []).forEach(p => {
+            if (p.category) {
+                countMap[p.category] = (countMap[p.category] || 0) + 1;
             }
         });
 
-        const categories = Array.from(categoryMap.values()).sort((a, b) =>
-            a.name.localeCompare(b.name)
-        );
+        const result = categories.map(c => ({
+            _id: c.id,
+            name: c.name,
+            description: c.description,
+            productCount: countMap[c.name] || 0,
+            createdAt: c.created_at
+        }));
 
-        return res.status(200).json({
-            success: true,
-            count: categories.length,
-            categories
-        });
+        return res.status(200).json({ success: true, count: result.length, categories: result });
     } catch (error) {
-        return res.status(500).json({
-            success: false,
-            message: error.message
-        });
+        return res.status(500).json({ success: false, message: error.message });
     }
 };
 
-// @desc    Create new category
-// @route   POST /api/v1/category
-// @access  Private/Admin
+// ─────────────────────────────────────────────
+// CREATE CATEGORY (Admin)
+// ─────────────────────────────────────────────
 export const createCategory = async (req, res) => {
     try {
         const { name, description } = req.body;
-
         if (!name || !name.trim()) {
-            return res.status(400).json({
-                success: false,
-                message: "Category name is required"
-            });
+            return res.status(400).json({ success: false, message: "Category name is required" });
         }
 
         const trimmedName = name.trim();
 
-        // Check if category already exists (case-insensitive with safe regex escaping)
-        const existingCategory = await Category.findOne({
-            name: { $regex: new RegExp(`^${escapeRegex(trimmedName)}$`, "i") }
-        });
+        // Check existing (case-insensitive)
+        const { data: existing } = await supabase
+            .from('categories')
+            .select('name')
+            .ilike('name', trimmedName)
+            .maybeSingle();
 
-        if (existingCategory) {
-            return res.status(400).json({
-                success: false,
-                message: `Category "${existingCategory.name}" already exists`
-            });
+        if (existing) {
+            return res.status(400).json({ success: false, message: `Category "${existing.name}" already exists` });
         }
 
-        const newCategory = await Category.create({
-            name: trimmedName,
-            description: description ? description.trim() : ""
-        });
+        const { data: newCat, error } = await supabase
+            .from('categories')
+            .insert({ name: trimmedName, description: description ? description.trim() : "" })
+            .select()
+            .single();
+
+        if (error) throw new Error(error.message);
 
         return res.status(201).json({
             success: true,
-            message: `Category "${newCategory.name}" created successfully`,
-            category: newCategory
+            message: `Category "${newCat.name}" created successfully`,
+            category: { _id: newCat.id, name: newCat.name, description: newCat.description, createdAt: newCat.created_at }
         });
     } catch (error) {
-        return res.status(500).json({
-            success: false,
-            message: error.message
-        });
+        return res.status(500).json({ success: false, message: error.message });
     }
 };
 
-// @desc    Delete category
-// @route   DELETE /api/v1/category/:id
-// @access  Private/Admin
+// ─────────────────────────────────────────────
+// DELETE CATEGORY (Admin)
+// ─────────────────────────────────────────────
 export const deleteCategory = async (req, res) => {
     try {
         const { id } = req.params;
 
-        const category = await Category.findById(id);
+        const { data: category } = await supabase.from('categories').select('*').eq('id', id).maybeSingle();
         if (!category) {
-            return res.status(404).json({
-                success: false,
-                message: "Category not found"
-            });
+            return res.status(404).json({ success: false, message: "Category not found" });
         }
 
-        // Check if products still use this category
-        const attachedProducts = await Product.countDocuments({ category: category.name });
-        if (attachedProducts > 0) {
+        // Check attached products
+        const { data: attachedProducts } = await supabase
+            .from('products')
+            .select('id')
+            .eq('category', category.name);
+
+        if (attachedProducts && attachedProducts.length > 0) {
             return res.status(400).json({
                 success: false,
-                message: `Cannot delete "${category.name}" because ${attachedProducts} product(s) are still assigned to it. Reassign or delete those products first.`
+                message: `Cannot delete "${category.name}" because ${attachedProducts.length} product(s) are still assigned to it. Reassign or delete those products first.`
             });
         }
 
-        await Category.findByIdAndDelete(id);
+        await supabase.from('categories').delete().eq('id', id);
 
-        return res.status(200).json({
-            success: true,
-            message: `Category "${category.name}" deleted successfully`
-        });
+        return res.status(200).json({ success: true, message: `Category "${category.name}" deleted successfully` });
     } catch (error) {
-        return res.status(500).json({
-            success: false,
-            message: error.message
-        });
+        return res.status(500).json({ success: false, message: error.message });
     }
 };

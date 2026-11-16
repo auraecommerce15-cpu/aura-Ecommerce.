@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+
+# Private & User Account Areas
+Disallow: /admin
+Disallow: /checkout
+Disallow: /profile
+Disallow: /order/
+Disallow: /verify/
+
+# Sitemap
+Sitemap: https://aura-ecommerce15.vercel.app/sitemap.xml

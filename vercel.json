@@ -1,5 +1,5 @@
 {
-  "installCommand": "npm install && cd frontend && npm install",
+  "installCommand": "npm install --loglevel=error && cd frontend && npm install --loglevel=error",
   "buildCommand": "cd frontend && npm run build",
   "outputDirectory": "frontend/dist",
   "functions": {

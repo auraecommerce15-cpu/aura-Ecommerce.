@@ -9,9 +9,13 @@ import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { Search, SlidersHorizontal, ShoppingCart, Star, Laptop } from "lucide-react";
 import PageHero from "@/components/PageHero";
+import { useLanguage } from "@/context/LanguageContext";
+import { useCurrency } from "@/context/CurrencyContext";
 
 const Products = () => {
     const dispatch = useDispatch();
+    const { t } = useLanguage();
+    const { formatPrice } = useCurrency();
     const { products, loading } = useSelector((state) => state.products);
     const [searchParams, setSearchParams] = useSearchParams();
     
@@ -310,13 +314,13 @@ const Products = () => {
                                             </p>
 
                                             <div className="flex items-center justify-between mt-auto pt-4 border-t border-slate-50">
-                                                <span className="text-xl font-extrabold text-slate-950">${product.price}</span>
+                                                <span className="text-xl font-extrabold text-slate-950 dark:text-white">{formatPrice(product.price)}</span>
                                                 <Button
                                                     disabled={product.stock === 0}
                                                     onClick={() => handleAddToCart(product)}
                                                     className="bg-purple-600 hover:bg-purple-700 text-white h-9 rounded-xl px-4 cursor-pointer gap-2"
                                                 >
-                                                    <ShoppingCart size={15} /> Add
+                                                    <ShoppingCart size={15} /> {t("home.addToCart")}
                                                 </Button>
                                             </div>
                                         </div>

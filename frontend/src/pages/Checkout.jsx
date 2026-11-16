@@ -9,11 +9,15 @@ import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { CreditCard, ShieldCheck, Banknote, Tag, X } from "lucide-react";
 import PageHero from "@/components/PageHero";
+import { useCurrency } from "@/context/CurrencyContext";
+import { useLanguage } from "@/context/LanguageContext";
 
 const Checkout = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { cartItems } = useSelector((state) => state.cart);
+    const { formatPrice } = useCurrency();
+    const { t } = useLanguage();
 
     const [paymentMethod, setPaymentMethod] = useState("Card"); // "Card" or "Cash on Delivery"
     const [couponInput, setCouponInput] = useState("");
@@ -356,7 +360,7 @@ const Checkout = () => {
                                         <h4 className="text-xs font-bold text-slate-800 dark:text-white truncate">{item.name}</h4>
                                         <span className="text-xs text-slate-400">Qty: {item.qty}</span>
                                     </div>
-                                    <span className="text-xs font-black text-slate-900 dark:text-white">${(item.price * item.qty).toFixed(2)}</span>
+                                    <span className="text-xs font-black text-slate-900 dark:text-white">{formatPrice(item.price * item.qty)}</span>
                                 </div>
                             ))}
                         </div>
@@ -400,42 +404,42 @@ const Checkout = () => {
 
                         <div className="space-y-3.5 text-xs">
                             <div className="flex justify-between text-slate-500 dark:text-slate-400">
-                                <span>Subtotal</span>
-                                <span className="font-bold text-slate-850 dark:text-white">${itemsPrice.toFixed(2)}</span>
+                                <span>{t("cart.subtotal")}</span>
+                                <span className="font-bold text-slate-850 dark:text-white">{formatPrice(itemsPrice)}</span>
                             </div>
                             {discountPrice > 0 && (
                                 <div className="flex justify-between text-purple-600 dark:text-purple-400 font-bold">
                                     <span>Discount (AURA10)</span>
-                                    <span>-${discountPrice.toFixed(2)}</span>
+                                    <span>-{formatPrice(discountPrice)}</span>
                                 </div>
                             )}
                             <div className="flex justify-between text-slate-500 dark:text-slate-400">
-                                <span>Shipping</span>
+                                <span>{t("cart.shipping")}</span>
                                 <span className="font-bold text-slate-850 dark:text-white">
-                                    {shippingPrice === 0 ? "FREE" : `$${shippingPrice.toFixed(2)}`}
+                                    {shippingPrice === 0 ? t("cart.free") : formatPrice(shippingPrice)}
                                 </span>
                             </div>
                             <div className="flex justify-between text-slate-500 dark:text-slate-400">
-                                <span>Tax (8%)</span>
-                                <span className="font-bold text-slate-850 dark:text-white">${taxPrice.toFixed(2)}</span>
+                                <span>{t("cart.tax")}</span>
+                                <span className="font-bold text-slate-850 dark:text-white">{formatPrice(taxPrice)}</span>
                             </div>
                             <hr className="border-slate-100 dark:border-slate-800" />
                             <div className="flex justify-between text-base font-bold text-slate-900 dark:text-white">
-                                <span>Total Price</span>
-                                <span className="text-xl font-black text-purple-600 dark:text-purple-400">${totalPrice.toFixed(2)}</span>
+                                <span>{t("cart.total")}</span>
+                                <span className="text-xl font-black text-purple-600 dark:text-purple-400">{formatPrice(totalPrice)}</span>
                             </div>
                         </div>
 
                         <Button
                             type="submit"
                             disabled={loading}
-                            className="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold h-12 rounded-xl cursor-pointer"
+                            className="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold h-12 rounded-xl cursor-pointer shadow-md"
                         >
                             {loading
                                 ? "Processing Order..."
                                 : paymentMethod === "Cash on Delivery"
-                                ? `Place COD Order ($${totalPrice.toFixed(2)})`
-                                : `Authorize & Pay $${totalPrice.toFixed(2)}`}
+                                ? `Place COD Order (${formatPrice(totalPrice)})`
+                                : `Authorize & Pay ${formatPrice(totalPrice)}`}
                         </Button>
                     </div>
 

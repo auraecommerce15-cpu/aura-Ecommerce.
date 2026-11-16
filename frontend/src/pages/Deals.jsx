@@ -10,9 +10,13 @@ import {
   Sparkles, Tag, ShieldCheck, Zap
 } from "lucide-react";
 import PageHero from "@/components/PageHero";
+import { useCurrency } from "@/context/CurrencyContext";
+import { useLanguage } from "@/context/LanguageContext";
 
 const Deals = () => {
   const dispatch = useDispatch();
+  const { formatPrice } = useCurrency();
+  const { t } = useLanguage();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -213,10 +217,10 @@ const Deals = () => {
                   <div className="flex items-center justify-between pt-4 border-t border-slate-800/80 mt-auto">
                     <div>
                       <div className="flex items-baseline gap-2">
-                        <span className="text-2xl font-black text-white">${p.price}</span>
-                        <span className="text-xs text-slate-500 line-through font-bold">${p.originalPrice}</span>
+                        <span className="text-2xl font-black text-white">{formatPrice(p.price)}</span>
+                        <span className="text-xs text-slate-500 line-through font-bold">{formatPrice(p.originalPrice)}</span>
                       </div>
-                      <span className="text-[10px] font-bold text-teal-400">Save ${p.originalPrice - p.price}</span>
+                      <span className="text-[10px] font-bold text-teal-400">Save {formatPrice(p.originalPrice - p.price)}</span>
                     </div>
                     <Button
                       disabled={p.stock === 0}

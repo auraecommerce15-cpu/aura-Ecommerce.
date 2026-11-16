@@ -14,10 +14,14 @@ import {
   MessageSquarePlus, Eye, X, Sun, Moon
 } from "lucide-react";
 import { useTheme } from "@/context/ThemeContext";
+import { useLanguage } from "@/context/LanguageContext";
+import { useCurrency } from "@/context/CurrencyContext";
 
 const Home = () => {
   const dispatch = useDispatch();
   const { theme, toggleTheme } = useTheme();
+  const { t, isUrdu } = useLanguage();
+  const { formatPrice } = useCurrency();
   const [featuredProducts, setFeaturedProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -162,7 +166,10 @@ const Home = () => {
         {/* Header: Centered title with purple pill underneath, View All on right */}
         <div className="relative mb-12 flex flex-col items-center">
           <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight text-center">
-            Our Popular Products
+            {t("home.popularTitle")}{" "}
+            <span className="text-purple-600 dark:text-purple-400">
+              {t("home.popularGradient")}
+            </span>
           </h2>
           <div className="w-14 h-1 bg-purple-600 rounded-full mt-3" />
           
@@ -171,7 +178,7 @@ const Home = () => {
               to="/products"
               className="text-purple-600 dark:text-purple-400 hover:text-purple-700 font-bold text-sm inline-flex items-center gap-1 group transition-colors"
             >
-              <span>View All</span>
+              <span>{t("home.viewAll")}</span>
               <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
@@ -223,13 +230,13 @@ const Home = () => {
                   </div>
 
                   <div className="flex items-center justify-between mt-auto pt-3 border-t border-slate-200/60 dark:border-slate-800">
-                    <span className="text-lg font-black text-slate-900 dark:text-white tracking-tight">${p.price}</span>
+                    <span className="text-lg font-black text-slate-900 dark:text-white tracking-tight">{formatPrice(p.price)}</span>
                     <Button
                       disabled={p.stock === 0}
                       onClick={(e) => handleAddToCart(p, e)}
                       className="bg-purple-600 hover:bg-purple-700 text-white h-8.5 rounded-full px-4 cursor-pointer text-xs gap-1.5 font-bold transition-all shadow-md shadow-purple-600/20"
                     >
-                      <ShoppingCart size={13} /> Add
+                      <ShoppingCart size={13} /> {t("home.addToCart")}
                     </Button>
                   </div>
                 </div>
@@ -398,8 +405,8 @@ const Home = () => {
                     {/* Price + CTA Buttons */}
                     <div className="flex items-center justify-between pt-4 border-t border-slate-800/80 mt-auto">
                       <div className="flex items-baseline gap-2">
-                        <span className="text-2xl font-black text-white">${p.price}</span>
-                        <span className="text-xs text-slate-500 line-through font-semibold">${p.originalPrice}</span>
+                        <span className="text-2xl font-black text-white">{formatPrice(p.price)}</span>
+                        <span className="text-xs text-slate-500 line-through font-semibold">{formatPrice(p.originalPrice)}</span>
                       </div>
                       <div className="flex items-center gap-2">
                         <Link to={`/product/${p._id}`}>

@@ -2,39 +2,49 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { useState, useEffect } from "react";
+import { useLanguage } from "@/context/LanguageContext";
 
 const Hero = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const { language, t, isUrdu } = useLanguage();
 
   const slides = [
     {
-      title1: "Next-Gen",
-      title2: "Electronics",
-      subtitle: "Explore the latest tech with unbeatable prices.",
+      title1: isUrdu ? "جدید ترین" : "Next-Gen",
+      title2: isUrdu ? "الیکٹرانکس" : "Electronics",
+      subtitle: isUrdu
+        ? "بہترین قیمتوں پر جدید ترین ٹیکنالوجی اور گیجٹس حاصل کریں۔"
+        : "Explore the latest tech with unbeatable prices.",
       link: "/products",
       image: "/slide_headphones.png",
       alt: "Next-Gen Electronics - Premium Headphones"
     },
     {
-      title1: "Flagship",
-      title2: "Smartphones",
-      subtitle: "Stunning displays, pro cameras, and all-day battery life.",
+      title1: isUrdu ? "فلیگ شپ" : "Flagship",
+      title2: isUrdu ? "اسمارٹ فونز" : "Smartphones",
+      subtitle: isUrdu
+        ? "شاندار ڈسپلے، پرو کیمرہ اور طویل بیٹری لائف۔"
+        : "Stunning displays, pro cameras, and all-day battery life.",
       link: "/products?category=Smartphones",
       image: "/slide_phone.png",
       alt: "Flagship Smartphones"
     },
     {
-      title1: "Pro Power",
-      title2: "Ultrabooks",
-      subtitle: "Uncompromising speed and endurance for creators.",
+      title1: isUrdu ? "پرو پاور" : "Pro Power",
+      title2: isUrdu ? "لیپ ٹاپس" : "Ultrabooks",
+      subtitle: isUrdu
+        ? "پیشہ ور افراد اور تخلیق کاروں کے لیے شاندار رفتار۔"
+        : "Uncompromising speed and endurance for creators.",
       link: "/products?category=Laptops",
       image: "/slide_laptop.png",
       alt: "Pro Power Ultrabooks"
     },
     {
-      title1: "Smart Living",
-      title2: "Wearables",
-      subtitle: "Precision health metrics and active lifestyle tracking.",
+      title1: isUrdu ? "اسمارٹ لائف" : "Smart Living",
+      title2: isUrdu ? "گھڑیاں" : "Wearables",
+      subtitle: isUrdu
+        ? "صحت اور فٹنس کی درست پیمائش کے لیے سمارٹ واچز۔"
+        : "Precision health metrics and active lifestyle tracking.",
       link: "/products?category=Smartwatches",
       image: "/slide_watch.png",
       alt: "Smart Living Wearables"
@@ -107,7 +117,7 @@ const Hero = () => {
                 <Button
                   className="bg-[#8B5CF6] hover:bg-[#7C3AED] text-white font-bold px-6 sm:px-7 h-10 sm:h-11 rounded-full transition-all duration-200 hover:scale-[1.03] shadow-lg shadow-purple-600/35 flex items-center gap-2 text-xs sm:text-sm cursor-pointer"
                 >
-                  Shop Now <ArrowRight size={15} />
+                  {t("hero.cta")} <ArrowRight size={15} />
                 </Button>
               </Link>
             </div>

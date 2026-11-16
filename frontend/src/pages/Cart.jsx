@@ -5,12 +5,16 @@ import { Button } from "@/components/ui/button";
 import { Trash2, ShoppingBag, ArrowRight, ShoppingCart } from "lucide-react";
 import { toast } from "sonner";
 import PageHero from "@/components/PageHero";
+import { useLanguage } from "@/context/LanguageContext";
+import { useCurrency } from "@/context/CurrencyContext";
 
 const Cart = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { cartItems } = useSelector((state) => state.cart);
     const { user } = useSelector((state) => state.user);
+    const { t } = useLanguage();
+    const { formatPrice } = useCurrency();
 
     const handleQtyChange = (product, qty, stock) => {
         if (qty < 1 || qty > stock) return;
@@ -22,7 +26,7 @@ const Cart = () => {
         toast.error(`${name} removed from cart`);
     };
 
-    // Calculate Prices
+    // Calculate Prices in USD baseline
     const itemsPrice = cartItems.reduce((acc, item) => acc + item.price * item.qty, 0);
     const shippingPrice = itemsPrice === 0 || itemsPrice > 50 ? 0 : 10;
     const taxPrice = Number((0.08 * itemsPrice).toFixed(2));
@@ -41,22 +45,22 @@ const Cart = () => {
         return (
             <div className="min-h-screen bg-white dark:bg-slate-950 flex flex-col">
                 <PageHero
-                    badge="SHOPPING CART"
-                    title="Your"
-                    gradientText="Cart"
-                    subtitle="Review your selected items before proceeding to checkout."
-                    breadcrumbs={[{ label: "Home", to: "/" }, { label: "Cart", to: null }]}
+                    badge="AURA STORE"
+                    title={t("cart.title")}
+                    gradientText={t("cart.gradient")}
+                    subtitle={t("cart.emptyDesc")}
+                    breadcrumbs={[{ label: t("nav.home"), to: "/" }, { label: t("nav.cart"), to: null }]}
                     rightIcon={ShoppingCart}
                 />
                 <div className="py-20 flex flex-col items-center justify-center text-center px-6 flex-grow">
                     <div className="w-20 h-20 bg-purple-100 dark:bg-purple-900/30 rounded-full flex items-center justify-center text-purple-600 dark:text-purple-400 mb-6">
                         <ShoppingBag size={40} />
                     </div>
-                    <h2 className="text-2xl font-bold text-slate-800 dark:text-white mb-2">Your Cart is Empty</h2>
-                    <p className="text-slate-500 dark:text-slate-400 mb-8 max-w-sm">Looks like you haven't added anything to your cart yet.</p>
+                    <h2 className="text-2xl font-bold text-slate-800 dark:text-white mb-2">{t("cart.empty")}</h2>
+                    <p className="text-slate-500 dark:text-slate-400 mb-8 max-w-sm">{t("cart.emptyDesc")}</p>
                     <Link to="/products">
                         <Button className="bg-purple-600 hover:bg-purple-700 text-white rounded-xl px-8 h-11 font-bold shadow-md cursor-pointer">
-                            Browse Products
+                            {t("cart.browse")}
                         </Button>
                     </Link>
                 </div>
@@ -67,11 +71,11 @@ const Cart = () => {
     return (
         <div className="pb-16 min-h-screen bg-white dark:bg-slate-950 text-slate-900 dark:text-white">
             <PageHero
-                badge="SHOPPING CART"
-                title="Your"
-                gradientText="Cart"
+                badge="AURA STORE"
+                title={t("cart.title")}
+                gradientText={t("cart.gradient")}
                 subtitle="Review your selected items before proceeding to checkout."
-                breadcrumbs={[{ label: "Home", to: "/" }, { label: "Cart", to: null }]}
+                breadcrumbs={[{ label: t("nav.home"), to: "/" }, { label: t("nav.cart"), to: null }]}
                 rightIcon={ShoppingCart}
             />
 
@@ -98,7 +102,7 @@ const Cart = () => {
                                     >
                                         {item.name}
                                     </Link>
-                                    <span className="text-sm font-black text-slate-950 dark:text-purple-300 block mt-1">${item.price}</span>
+                                    <span className="text-sm font-black text-slate-950 dark:text-purple-300 block mt-1">{formatPrice(item.price)}</span>
                                 </div>
 
                                 {/* Qty picker */}
@@ -133,28 +137,28 @@ const Cart = () => {
                     {/* Order Summary Card */}
                     <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-100 dark:border-slate-800 shadow-sm h-fit space-y-6">
                         <h3 className="font-bold text-slate-900 dark:text-white text-lg border-b border-slate-100 dark:border-slate-800 pb-4">
-                            Order Summary
+                            {t("cart.orderSummary")}
                         </h3>
 
                         <div className="space-y-3.5 text-sm">
                             <div className="flex justify-between text-slate-500 dark:text-slate-400">
-                                <span>Subtotal</span>
-                                <span className="font-bold text-slate-800 dark:text-white">${itemsPrice.toFixed(2)}</span>
+                                <span>{t("cart.subtotal")}</span>
+                                <span className="font-bold text-slate-800 dark:text-white">{formatPrice(itemsPrice)}</span>
                             </div>
                             <div className="flex justify-between text-slate-500 dark:text-slate-400">
-                                <span>Shipping</span>
+                                <span>{t("cart.shipping")}</span>
                                 <span className="font-bold text-slate-800 dark:text-white">
-                                    {shippingPrice === 0 ? "FREE" : `$${shippingPrice.toFixed(2)}`}
+                                    {shippingPrice === 0 ? t("cart.free") : formatPrice(shippingPrice)}
                                 </span>
                             </div>
                             <div className="flex justify-between text-slate-500 dark:text-slate-400">
-                                <span>Tax (8%)</span>
-                                <span className="font-bold text-slate-800 dark:text-white">${taxPrice.toFixed(2)}</span>
+                                <span>{t("cart.tax")}</span>
+                                <span className="font-bold text-slate-800 dark:text-white">{formatPrice(taxPrice)}</span>
                             </div>
                             <hr className="border-slate-100 dark:border-slate-800" />
                             <div className="flex justify-between text-base font-bold text-slate-900 dark:text-white">
-                                <span>Total</span>
-                                <span className="text-xl font-black text-purple-600 dark:text-purple-400">${totalPrice.toFixed(2)}</span>
+                                <span>{t("cart.total")}</span>
+                                <span className="text-xl font-black text-purple-600 dark:text-purple-400">{formatPrice(totalPrice)}</span>
                             </div>
                         </div>
 
@@ -163,10 +167,10 @@ const Cart = () => {
                                 onClick={handleCheckout}
                                 className="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold h-11 rounded-xl cursor-pointer gap-2 shadow-md"
                             >
-                                Proceed to Checkout <ArrowRight size={16} />
+                                {t("cart.checkout")} <ArrowRight size={16} />
                             </Button>
                             <Link to="/products" className="block text-center text-xs font-semibold text-purple-600 dark:text-purple-400 hover:underline pt-2">
-                                Continue Shopping
+                                {t("cart.continue")}
                             </Link>
                         </div>
                     </div>

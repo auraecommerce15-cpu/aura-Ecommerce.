@@ -8,10 +8,14 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { Star, ShoppingCart, ArrowLeft, Send, Box } from "lucide-react";
 import PageHero from "@/components/PageHero";
+import { useCurrency } from "@/context/CurrencyContext";
+import { useLanguage } from "@/context/LanguageContext";
 
 const ProductDetails = () => {
     const { id } = useParams();
     const dispatch = useDispatch();
+    const { formatPrice } = useCurrency();
+    const { t } = useLanguage();
     const { selectedProduct: product, loading } = useSelector((state) => state.products);
     const { user } = useSelector((state) => state.user);
 
@@ -173,7 +177,7 @@ const ProductDetails = () => {
                         </div>
 
                         <div className="mb-6">
-                            <span className="text-3xl font-black text-slate-950 dark:text-white">${product.price}</span>
+                            <span className="text-3xl font-black text-slate-950 dark:text-white">{formatPrice(product.price)}</span>
                         </div>
 
                         <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-6">

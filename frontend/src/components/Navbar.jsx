@@ -174,6 +174,19 @@ const Navbar = () => {
               {t("nav.deals")}
             </Link>
 
+            {/* Journal / Blog */}
+            <Link
+              to="/blog"
+              className={`relative py-1 transition-colors hover:text-purple-600 dark:hover:text-purple-400 ${
+                location.pathname.startsWith("/blog") ? "text-purple-600 dark:text-purple-400 font-bold" : ""
+              }`}
+            >
+              {isUrdu ? "بلاگ" : "Journal"}
+              {location.pathname.startsWith("/blog") && (
+                <span className="absolute -bottom-1.5 left-0 w-full h-[2.5px] bg-purple-600 rounded-full" />
+              )}
+            </Link>
+
             {/* About */}
             <Link
               to="/about"
@@ -448,6 +461,15 @@ const Navbar = () => {
                 className="block py-1 hover:text-purple-600 dark:hover:text-purple-400 text-purple-600 font-bold"
               >
                 {t("nav.deals")}
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/blog"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block py-1 hover:text-purple-600 dark:hover:text-purple-400 font-bold"
+              >
+                {isUrdu ? "بلاگ" : "Journal"}
               </Link>
             </li>
             <li className="pt-1">

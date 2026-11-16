@@ -11,8 +11,10 @@ import {
   Laptop, Smartphone, Headphones, Watch,
   Check, Star, ArrowRight, ShoppingCart,
   Percent, Flame, Clock, Quote,
-  MessageSquarePlus, Eye, X, Sun, Moon
+  MessageSquarePlus, Eye, X, Sun, Moon,
+  Sparkles, BookOpen
 } from "lucide-react";
+import { blogPosts } from "@/data/blogPosts";
 import { useTheme } from "@/context/ThemeContext";
 import { useLanguage } from "@/context/LanguageContext";
 import { useCurrency } from "@/context/CurrencyContext";
@@ -561,6 +563,118 @@ const Home = () => {
               </Button>
             </Link>
           </div>
+        </div>
+      </section>
+
+      {/* ─────────── 7.5. AURA Luxury Journal / Editorial Section ─────────── */}
+      <section className="py-24 bg-gradient-to-b from-slate-50/70 via-purple-50/20 to-white dark:from-slate-950 dark:via-purple-950/10 dark:to-slate-950 border-b border-slate-100 dark:border-slate-900 transition-colors">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+          {/* Section Header */}
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+            <div className="space-y-3 max-w-2xl">
+              <div className="inline-flex items-center gap-2 bg-purple-500/10 dark:bg-purple-500/20 border border-purple-500/20 rounded-full px-3.5 py-1 text-purple-600 dark:text-purple-400 text-xs font-black uppercase tracking-[0.2em]">
+                <Sparkles size={13} className="text-purple-500 animate-pulse" />
+                <span>The AURA Journal</span>
+              </div>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">
+                Luxury Tech Insights & <br className="hidden sm:inline" />
+                <span className="bg-gradient-to-r from-purple-600 to-indigo-500 dark:from-purple-400 dark:to-indigo-300 bg-clip-text text-transparent">
+                  Editorial Excellence
+                </span>
+              </h2>
+              <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 leading-relaxed">
+                Curated deep-dives on next-generation computing, horological wearables, and sound engineering designed to keep discerning minds ahead of the curve.
+              </p>
+            </div>
+
+            <Link to="/blog" className="shrink-0">
+              <Button className="bg-purple-600 hover:bg-purple-700 text-white rounded-2xl font-bold h-12 px-6 gap-2 shadow-lg shadow-purple-500/20 hover:scale-[1.02] transition-all cursor-pointer">
+                <BookOpen size={16} /> Explore All Articles <ArrowRight size={15} />
+              </Button>
+            </Link>
+          </div>
+
+          {/* Blog Cards Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {blogPosts.slice(0, 3).map((post, idx) => (
+              <article
+                key={post.id}
+                className="group relative bg-white dark:bg-slate-900 rounded-3xl overflow-hidden border border-slate-200/80 dark:border-slate-800 hover:border-purple-300 dark:hover:border-purple-700/60 shadow-sm hover:shadow-2xl hover:shadow-purple-500/10 hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between"
+              >
+                <div>
+                  {/* Hero Image Container */}
+                  <div className="relative h-60 sm:h-64 overflow-hidden bg-slate-900">
+                    <img
+                      src={post.image}
+                      alt={post.title}
+                      className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700 ease-out"
+                      onError={(e) => {
+                        e.currentTarget.src = "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80";
+                      }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+
+                    {/* Category Tag */}
+                    <div className="absolute top-4 left-4">
+                      <span className="bg-white/95 dark:bg-slate-950/90 text-slate-900 dark:text-white backdrop-blur-md text-[11px] font-black uppercase tracking-wider px-3 py-1 rounded-full border border-white/20 shadow-sm">
+                        {post.category}
+                      </span>
+                    </div>
+
+                    {/* Reading Time */}
+                    <div className="absolute bottom-4 left-4 flex items-center gap-1.5 text-white/90 text-xs font-semibold backdrop-blur-md bg-black/40 px-3 py-1 rounded-full">
+                      <Clock size={12} className="text-purple-400" />
+                      <span>{post.readTime}</span>
+                    </div>
+                  </div>
+
+                  {/* Body Text */}
+                  <div className="p-6 sm:p-7 space-y-3">
+                    <div className="text-[11px] font-bold text-slate-400 uppercase tracking-widest">
+                      {post.date} · By {post.author}
+                    </div>
+                    <h3 className="text-xl font-black text-slate-900 dark:text-white leading-snug group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors line-clamp-2">
+                      {post.title}
+                    </h3>
+                    <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-3">
+                      {post.excerpt}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Footer Action */}
+                <div className="px-6 pb-6 pt-2 border-t border-slate-100 dark:border-slate-800/80 mt-auto flex items-center justify-between">
+                  <span className="text-xs font-bold text-slate-500 dark:text-slate-400">
+                    Editorial Deep-Dive
+                  </span>
+                  <Link
+                    to={`/blog/${post.slug}`}
+                    className="inline-flex items-center gap-1.5 text-xs font-black text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 group-hover:gap-2.5 transition-all"
+                  >
+                    Read Story <ArrowRight size={13} />
+                  </Link>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          {/* Secondary Story Ticker / Teaser Strip */}
+          <div className="mt-12 bg-white/70 dark:bg-slate-900/60 backdrop-blur-md border border-slate-200/70 dark:border-slate-800/80 rounded-2xl p-5 sm:p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-3 text-sm text-slate-700 dark:text-slate-300 text-center sm:text-left">
+              <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping shrink-0" />
+              <span>
+                <strong>Trending in Journal:</strong> <em>"The Ultimate Luxury Gaming Setup: Building a $10,000 Battlestation"</em>
+              </span>
+            </div>
+            <Link
+              to="/blog/ultimate-gaming-setup-guide"
+              className="text-xs font-bold text-purple-600 dark:text-purple-400 hover:underline shrink-0 flex items-center gap-1"
+            >
+              Read full breakdown &rarr;
+            </Link>
+          </div>
+
         </div>
       </section>
 

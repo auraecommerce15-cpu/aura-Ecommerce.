@@ -22,6 +22,8 @@ import PrivacyPolicy from './pages/PrivacyPolicy'
 import Terms from './pages/Terms'
 import ReturnsPolicy from './pages/ReturnsPolicy'
 import ShippingPolicy from './pages/ShippingPolicy'
+import Blogs from './pages/Blogs'
+import BlogPost from './pages/BlogPost'
 import Footer from './components/footer'
 
 const router= createBrowserRouter([
@@ -114,6 +116,14 @@ const router= createBrowserRouter([
   {
     path: "/shipping",
     element: <><Navbar/><ShippingPolicy/><Footer/></>
+  },
+  {
+    path: "/blog",
+    element: <><Navbar/><Blogs/><Footer/></>
+  },
+  {
+    path: "/blog/:slug",
+    element: <><Navbar/><BlogPost/><Footer/></>
   }
 ])
 

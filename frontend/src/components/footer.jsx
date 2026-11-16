@@ -60,7 +60,8 @@ const Footer = () => {
     { label: "Studio Headphones & ANC", to: "/products?category=Headphones", isHot: true },
     { label: "Smartwatches & Wearables", to: "/products?category=Smartwatches" },
     { label: "All Curated Gear", to: "/products" },
-    { label: "Special Offers & Deals", to: "/deals" }
+    { label: "Special Offers & Deals", to: "/deals" },
+    { label: "AURA Journal & Blog", to: "/blog", isHot: true }
   ];
 
   const serviceLinks = [
@@ -97,7 +98,7 @@ const Footer = () => {
     },
     {
       name: "GitHub",
-      to: "https://github.com/Rizwanshahani/aura-Ecommerce..git",
+      to: "https://github.com/auraecommerce15-cpu/aura-Ecommerce.",
       color: "hover:bg-slate-800 hover:text-white",
       label: "GitHub",
       icon: (

@@ -32,6 +32,50 @@
     <priority>0.7</priority>
   </url>
 
+  <!-- AURA Journal & Editorial Blogs (SEO Rank Up) -->
+  <url>
+    <loc>https://aura-ecommerce15.vercel.app/blog</loc>
+    <lastmod>2026-11-16</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://aura-ecommerce15.vercel.app/blog/future-of-tech-2025</loc>
+    <lastmod>2026-11-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://aura-ecommerce15.vercel.app/blog/luxury-smartwatch-guide</loc>
+    <lastmod>2026-11-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://aura-ecommerce15.vercel.app/blog/audiophile-headphones-2025</loc>
+    <lastmod>2026-11-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://aura-ecommerce15.vercel.app/blog/ai-shopping-revolution</loc>
+    <lastmod>2026-11-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://aura-ecommerce15.vercel.app/blog/ultimate-gaming-setup-guide</loc>
+    <lastmod>2026-11-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://aura-ecommerce15.vercel.app/blog/sustainable-luxury-tech</loc>
+    <lastmod>2026-11-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
   <!-- About Us -->
   <url>
     <loc>https://aura-ecommerce15.vercel.app/about</loc>

@@ -1,8 +1,9 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { ArrowLeft, Clock, Calendar, Tag, Share2, Link2, ChevronRight } from "lucide-react";
 import { blogPosts } from "../data/blogPosts";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
+import { setPageMetadata } from "../utils/seo";
 
 const categoryColors = {
     "Innovation":     "bg-violet-100 text-violet-700 dark:bg-violet-900/40 dark:text-violet-300",
@@ -68,13 +69,19 @@ function RenderContent({ content }) {
 }
 
 function renderInline(text) {
-    // Bold **text**
-    const parts = text.split(/(\*\*[^*]+\*\*)/g);
-    return parts.map((part, i) =>
-        part.startsWith("**") && part.endsWith("**")
-            ? <strong key={i} className="font-bold text-slate-900 dark:text-white">{part.slice(2, -2)}</strong>
-            : part
-    );
+    const parts = text.split(/(\[(?:[^\]]+)\]\((?!\/{2})\/[^)\s]*\)|\*\*[^*]+\*\*)/g);
+    return parts.map((part, i) => {
+        if (part.startsWith("**") && part.endsWith("**")) {
+            return <strong key={i} className="font-bold text-slate-900 dark:text-white">{part.slice(2, -2)}</strong>;
+        }
+
+        const match = part.match(/^\[([^\]]+)\]\((\/[^)\s]*)\)$/);
+        if (match) {
+            return <Link key={i} to={match[2]} className="font-semibold text-purple-700 underline decoration-purple-300 underline-offset-4 hover:text-purple-900 dark:text-purple-300 dark:hover:text-purple-200">{match[1]}</Link>;
+        }
+
+        return part;
+    });
 }
 
 export default function BlogPost() {
@@ -83,7 +90,24 @@ export default function BlogPost() {
     const [shareOpen, setShareOpen] = useState(false);
 
     const post = blogPosts.find(p => p.slug === slug);
-    const related = blogPosts.filter(p => p.slug !== slug).slice(0, 3);
+    const related = post
+        ? [
+            ...blogPosts.filter(p => p.slug !== slug && p.category === post.category),
+            ...blogPosts.filter(p => p.slug !== slug && p.category !== post.category)
+        ].slice(0, 3)
+        : [];
+
+    useEffect(() => {
+        if (!post) return undefined;
+        return setPageMetadata({
+            title: post.seoTitle || post.title,
+            description: post.metaDescription || post.excerpt,
+            keywords: post.keywords || [`premium ${post.category.toLowerCase()} technology`, "luxury consumer electronics"],
+            canonicalPath: `/blog/${post.slug}`,
+            image: post.image,
+            type: "article"
+        });
+    }, [post]);
 
     if (!post) {
         return (

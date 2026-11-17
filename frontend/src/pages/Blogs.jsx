@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Clock, ArrowRight, Tag, ChevronRight } from "lucide-react";
 import { blogPosts } from "../data/blogPosts";
+import { setPageMetadata } from "../utils/seo";
 
 const CATEGORIES = ["All", "Innovation", "Wearables", "Audio", "Technology", "Gaming", "Sustainability"];
 
@@ -16,6 +17,14 @@ const categoryColors = {
 
 export default function Blogs() {
     const [activeCategory, setActiveCategory] = useState("All");
+
+    useEffect(() => setPageMetadata({
+        title: "Luxury Tech Journal: Premium Electronics Guides | AURA",
+        description: "Explore expert guides to luxury consumer electronics, premium smartphones, laptops, audio, cameras, and thoughtful technology shopping.",
+        keywords: ["luxury consumer electronics", "premium tech guides", "luxury technology", "premium electronics shopping"],
+        canonicalPath: "/blog",
+        image: "/luxury-hero.jpg"
+    }), []);
 
     const filtered = activeCategory === "All"
         ? blogPosts
@@ -47,7 +56,7 @@ export default function Blogs() {
                         The <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-violet-300">Journal</span>
                     </h1>
                     <p className="text-slate-300 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
-                        Deep-dive editorial on the technologies, materials, and ideas shaping the future of premium tech. Written for the curious and the discerning.
+                        Expert guides to luxury consumer electronics, premium tech shopping, and the ideas shaping how we use technology. Written for the curious and the discerning.
                     </p>
                 </div>
             </section>

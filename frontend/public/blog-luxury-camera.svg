@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="80" y1="0" x2="1100" y2="800" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#101525"/>
+      <stop offset=".58" stop-color="#20203A"/>
+      <stop offset="1" stop-color="#4B2853"/>
+    </linearGradient>
+    <linearGradient id="body" x1="278" y1="273" x2="883" y2="584" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#55566E"/>
+      <stop offset=".42" stop-color="#202331"/>
+      <stop offset="1" stop-color="#777188"/>
+    </linearGradient>
+    <linearGradient id="lens" x1="503" y1="326" x2="758" y2="593" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#D2C7F5"/>
+      <stop offset=".25" stop-color="#38365D"/>
+      <stop offset=".58" stop-color="#111624"/>
+      <stop offset=".8" stop-color="#5A47A4"/>
+      <stop offset="1" stop-color="#10131E"/>
+    </linearGradient>
+    <filter id="glow" x="160" y="60" width="900" height="680" filterUnits="userSpaceOnUse">
+      <feGaussianBlur stdDeviation="52"/>
+    </filter>
+  </defs>
+  <path fill="url(#bg)" d="M0 0h1200v800H0z"/>
+  <circle cx="648" cy="420" r="262" fill="#9D56E8" fill-opacity=".23" filter="url(#glow)"/>
+  <path d="M0 646h1200v154H0z" fill="#11131F" fill-opacity=".58"/>
+  <ellipse cx="600" cy="657" rx="371" ry="36" fill="#080911" fill-opacity=".62"/>
+  <path d="M300 306c0-24 19-43 43-43h131l42-59h183l44 59h117c24 0 43 19 43 43v266c0 25-20 45-45 45H345c-25 0-45-20-45-45V306Z" fill="url(#body)" stroke="#D9CFF2" stroke-opacity=".5" stroke-width="6"/>
+  <path d="M350 326h92v63h-92z" fill="#171925" stroke="#B8ACC9" stroke-opacity=".5" stroke-width="4"/>
+  <circle cx="396" cy="357" r="19" fill="#25263A" stroke="#D7C9EB" stroke-opacity=".75" stroke-width="4"/>
+  <rect x="760" y="318" width="92" height="60" rx="8" fill="#242435" stroke="#B8ACC9" stroke-opacity=".4" stroke-width="4"/>
+  <circle cx="633" cy="452" r="159" fill="#121522" stroke="#CFC5E2" stroke-opacity=".62" stroke-width="8"/>
+  <circle cx="633" cy="452" r="135" fill="url(#lens)" stroke="#5F6077" stroke-width="8"/>
+  <circle cx="633" cy="452" r="101" fill="#111726" stroke="#A796D9" stroke-opacity=".68" stroke-width="5"/>
+  <circle cx="633" cy="452" r="67" fill="#19243B" stroke="#7E9CDF" stroke-opacity=".74" stroke-width="5"/>
+  <circle cx="633" cy="452" r="37" fill="#090D18"/>
+  <circle cx="614" cy="432" r="15" fill="#8CE9F4" fill-opacity=".62"/>
+  <path d="M482 385c27-43 70-73 120-82" stroke="#F0E7FF" stroke-opacity=".64" stroke-width="7" stroke-linecap="round"/>
+  <rect x="453" y="278" width="90" height="17" rx="8.5" fill="#D8C9EC" fill-opacity=".74"/>
+  <path d="M321 601h566" stroke="#E3D8F3" stroke-opacity=".44" stroke-width="5"/>
+  <text x="74" y="112" fill="#E8D9FF" font-family="Arial, sans-serif" font-size="17" letter-spacing="5">THE AURA BUYING GUIDE</text>
+  <text x="77" y="739" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="23" letter-spacing="2">A CREATIVE TOOL, MADE TO BE USED</text>
+</svg>

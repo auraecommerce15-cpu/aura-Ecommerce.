@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="90" y1="0" x2="1110" y2="790" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#101B24"/>
+      <stop offset=".52" stop-color="#183A42"/>
+      <stop offset="1" stop-color="#35274C"/>
+    </linearGradient>
+    <linearGradient id="metal" x1="315" y1="254" x2="880" y2="575" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E2E9E6"/>
+      <stop offset=".46" stop-color="#768C8C"/>
+      <stop offset="1" stop-color="#C6CED0"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="438" y1="315" x2="737" y2="514" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#8173C9"/>
+      <stop offset=".55" stop-color="#435D89"/>
+      <stop offset="1" stop-color="#45ADB0"/>
+    </linearGradient>
+    <filter id="glow" x="135" y="30" width="930" height="710" filterUnits="userSpaceOnUse">
+      <feGaussianBlur stdDeviation="58"/>
+    </filter>
+  </defs>
+  <path fill="url(#bg)" d="M0 0h1200v800H0z"/>
+  <circle cx="825" cy="318" r="245" fill="#4FD2C5" fill-opacity=".17" filter="url(#glow)"/>
+  <circle cx="365" cy="445" r="200" fill="#A776E8" fill-opacity=".2" filter="url(#glow)"/>
+  <path d="M0 646h1200v154H0z" fill="#111822" fill-opacity=".68"/>
+  <path d="M240 618h720" stroke="#D2E5DA" stroke-opacity=".25" stroke-width="4"/>
+  <ellipse cx="600" cy="648" rx="327" ry="28" fill="#070D12" fill-opacity=".55"/>
+  <g transform="rotate(-8 601 421)">
+    <rect x="337" y="240" width="522" height="337" rx="43" fill="url(#metal)"/>
+    <rect x="351" y="254" width="494" height="309" rx="34" fill="#111822"/>
+    <rect x="367" y="270" width="462" height="277" rx="25" fill="url(#panel)"/>
+    <path d="M369 453c94-98 163-13 240-85 78-74 131-61 218-104v281H369V453Z" fill="#182C3C" fill-opacity=".55"/>
+    <path d="M374 461c98-83 160-9 239-77 77-67 130-66 207-91" stroke="#C2F6E8" stroke-opacity=".7" stroke-width="7" stroke-linecap="round"/>
+    <rect x="487" y="282" width="225" height="8" rx="4" fill="#E7F5F1" fill-opacity=".56"/>
+    <circle cx="600" cy="535" r="6" fill="#C8DDD8"/>
+  </g>
+  <rect x="167" y="482" width="115" height="149" rx="20" fill="#222938" stroke="#D6D6DF" stroke-opacity=".55" stroke-width="5"/>
+  <rect x="183" y="500" width="83" height="73" rx="10" fill="#7565A8"/>
+  <path d="M201 600h47" stroke="#78D7C1" stroke-width="6" stroke-linecap="round"/>
+  <rect x="915" y="430" width="123" height="201" rx="20" fill="#222938" stroke="#D6D6DF" stroke-opacity=".55" stroke-width="5"/>
+  <rect x="932" y="448" width="89" height="119" rx="10" fill="#405C6B"/>
+  <circle cx="977" cy="600" r="7" fill="#8BE5C6"/>
+  <path d="M281 556c42-39 62-39 103 0m591 0c42-39 62-39 103 0" stroke="#ABF1D5" stroke-opacity=".38" stroke-width="4" stroke-linecap="round"/>
+  <text x="74" y="112" fill="#DAF0E7" font-family="Arial, sans-serif" font-size="17" letter-spacing="5">THE AURA BUYING GUIDE</text>
+  <text x="77" y="739" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="23" letter-spacing="2">BUY THOUGHTFULLY. KEEP LONGER.</text>
+</svg>
